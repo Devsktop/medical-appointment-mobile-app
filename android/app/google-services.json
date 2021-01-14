@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "54498322659",
+    "project_id": "consultas-ad",
+    "storage_bucket": "consultas-ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54498322659:android:77f5fddc41e605712c7dd6",
+        "android_client_info": {
+          "package_name": "com.consultasad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54498322659-1v4r75mkjmq4fbj8uhu1p6gan3f5m6ia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKThcBQmMksZrHENsYBUisW-_aFrov-_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54498322659-1v4r75mkjmq4fbj8uhu1p6gan3f5m6ia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
