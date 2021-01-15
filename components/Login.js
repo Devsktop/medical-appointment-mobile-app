@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
@@ -18,8 +19,6 @@ const Login = ({ navigation, setScreen }) => {
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const [errorMessage, setErrorMessage] = useState(null);
-
   const handleLogin = () => {
     const { email, password } = user;
 
@@ -27,7 +26,15 @@ const Login = ({ navigation, setScreen }) => {
       auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => navigation.navigate("Main"))
-        .catch((error) => setErrorMessage(error.message));
+        .catch((error) => {
+          console.log(error.code);
+          Alert.alert("Lo sentimos", loginErrorHandle(error.code), [
+            {
+              text: "Aceptar",
+            },
+          ]);
+          // setErrorMessage(loginErrorHandle(error.code));
+        });
     }
   };
 
@@ -55,13 +62,12 @@ const Login = ({ navigation, setScreen }) => {
       </View>
 
       <View>
-        {errorMessage && <Text style={{ color: "red" }}>{errorMessage}</Text>}
-
         <View style={globalStyles.inputBox}>
           <TextInput
             style={globalStyles.inputField}
             autoCapitalize="none"
-            placeholder="Email"
+            placeholder="Ingrese su correo"
+            placeholderTextColor="#b8b8b8"
             onChangeText={(email) => handleOnChange(email, "email")}
             value={user.email}
           />
@@ -71,7 +77,8 @@ const Login = ({ navigation, setScreen }) => {
             secureTextEntry
             style={globalStyles.inputField}
             autoCapitalize="none"
-            placeholder="Password"
+            placeholder="Ingrese su contraseña"
+            placeholderTextColor="#b8b8b8"
             onChangeText={(password) => handleOnChange(password, "password")}
             value={user.password}
           />
@@ -97,7 +104,7 @@ const Login = ({ navigation, setScreen }) => {
         <TouchableHighlight
           underlayColor="#2985b3"
           style={[globalStyles.button, globalStyles.darkButton]}
-          onPress={() => setScreen("login")}
+          onPress={() => setScreen("signup")}
         >
           <Text style={globalStyles.buttonText}>Registrate</Text>
         </TouchableHighlight>
@@ -130,5 +137,36 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 });
+
+const loginErrorHandle = (err) => {
+  switch (err) {
+    case "auth/email-already-exists":
+      return "Este correo ya está siendo usado por otro usuario";
+    case err.userDisabled:
+      return "Este usuario ha sido deshabilitado";
+    case err.operationNotAllowed:
+      return "Operación no permitida";
+    case err.invalidEmail:
+      return "Correo electrónico no valido";
+    case "auth/wrong-password":
+      return "Contraseña incorrecta";
+    case "auth/user-not-found":
+      return "No se encontró cuenta del usuario con el correo especificado";
+    case err.networkError:
+      return "Promblema al intentar conectar al servidor";
+    case err.weakPassword:
+      return "Contraseña muy debil o no válida";
+    case err.missingEmail:
+      return "Hace falta registrar un correo electrónico";
+    case err.internalError:
+      return "Error interno";
+    case err.invalidCustomToken:
+      return "Token personalizado invalido";
+    case "auth/too-many-requests":
+      return "Ha intentado esta acción demasiada veces. Espere un momento e intentelo nuevamente más tarde.";
+    default:
+      return "algo ha ido mal";
+  }
+};
 
 export default Login;
