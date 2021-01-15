@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -9,7 +10,7 @@ import {
 import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
 
-export default Login = ({ navigation, setScreen }) => {
+const Login = ({ navigation, setScreen }) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -19,22 +20,18 @@ export default Login = ({ navigation, setScreen }) => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  console.log(buttonDisabled);
-
   const handleLogin = () => {
     const { email, password } = user;
 
-    if (!/\S+@\S+\.\S+/.test(email.trim()) || password.trim() === "") {
-    } else {
+    if (!(!/\S+@\S+\.\S+/.test(email.trim()) || password.trim() === "")) {
       auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => navigation.navigate("Main"))
-        .catch((error) => this.setState({ errorMessage: error.message }));
+        .catch((error) => setErrorMessage(error.message));
     }
   };
 
   const handleOnChange = (value, name) => {
-    console.log(value);
     setUser({ ...user, [name]: value.trim() });
     validateUser(value, name);
   };
@@ -60,23 +57,25 @@ export default Login = ({ navigation, setScreen }) => {
       <View>
         {errorMessage && <Text style={{ color: "red" }}>{errorMessage}</Text>}
 
-        <View>
+        <View style={globalStyles.inputBox}>
           <TextInput
-            style={styles.textInput}
+            style={globalStyles.inputField}
             autoCapitalize="none"
             placeholder="Email"
             onChangeText={(email) => handleOnChange(email, "email")}
             value={user.email}
           />
         </View>
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={(password) => handleOnChange(password, "password")}
-          value={user.password}
-        />
+        <View style={globalStyles.inputBox}>
+          <TextInput
+            secureTextEntry
+            style={globalStyles.inputField}
+            autoCapitalize="none"
+            placeholder="Password"
+            onChangeText={(password) => handleOnChange(password, "password")}
+            value={user.password}
+          />
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -131,3 +130,5 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 });
+
+export default Login;
