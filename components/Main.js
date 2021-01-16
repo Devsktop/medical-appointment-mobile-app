@@ -14,11 +14,31 @@ const Main = ({ navigation }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e) => {
+      console.log(navigation);
+      if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
+      e.preventDefault();
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    const focusListener = navigation.addListener("focus", () => {
+      validateUser();
+    });
+    return focusListener;
+  }, []);
+
+  const logout = () => {
+    auth().signOut();
+  };
+
   const validateUser = () => {
     const { currentUser } = auth();
     if (!currentUser) {
-      navigation.navigate("SignUp");
+      navigation.navigate("LoginController");
     } else {
+      console.log(currentUser.uid);
       firestore()
         .collection("users")
         .doc(currentUser.uid)
@@ -34,17 +54,6 @@ const Main = ({ navigation }) => {
           }
         });
     }
-  };
-
-  useEffect(() => {
-    const focusListener = navigation.addListener("focus", () => {
-      validateUser();
-    });
-    return focusListener;
-  }, []);
-
-  const logout = () => {
-    auth().signOut();
   };
 
   if (loading)

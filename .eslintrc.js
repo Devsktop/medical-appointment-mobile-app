@@ -26,7 +26,8 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
     'react/jsx-filename-extension': 'off',
     'no-use-before-define': 'off',
-    "semi": ['warn', 'always']
+    "semi": ['warn', 'always'],
+    'react/prop-types': 'off'
   },
   settings: {
     'import/resolver': {

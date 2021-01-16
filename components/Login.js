@@ -11,7 +11,7 @@ import {
 import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
 
-const Login = ({ navigation, setScreen }) => {
+const Login = ({ setScreen }) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -21,19 +21,19 @@ const Login = ({ navigation, setScreen }) => {
 
   const handleLogin = () => {
     const { email, password } = user;
-
+    console.log("hlaaaaaa");
     if (!(!/\S+@\S+\.\S+/.test(email.trim()) || password.trim() === "")) {
+      setScreen("loading");
       auth()
         .signInWithEmailAndPassword(email, password)
-        .then(() => navigation.navigate("Main"))
         .catch((error) => {
+          console.log(error);
           console.log(error.code);
           Alert.alert("Lo sentimos", loginErrorHandle(error.code), [
             {
               text: "Aceptar",
             },
           ]);
-          // setErrorMessage(loginErrorHandle(error.code));
         });
     }
   };
@@ -142,26 +142,10 @@ const loginErrorHandle = (err) => {
   switch (err) {
     case "auth/email-already-exists":
       return "Este correo ya está siendo usado por otro usuario";
-    case err.userDisabled:
-      return "Este usuario ha sido deshabilitado";
-    case err.operationNotAllowed:
-      return "Operación no permitida";
-    case err.invalidEmail:
-      return "Correo electrónico no valido";
     case "auth/wrong-password":
       return "Contraseña incorrecta";
     case "auth/user-not-found":
       return "No se encontró cuenta del usuario con el correo especificado";
-    case err.networkError:
-      return "Promblema al intentar conectar al servidor";
-    case err.weakPassword:
-      return "Contraseña muy debil o no válida";
-    case err.missingEmail:
-      return "Hace falta registrar un correo electrónico";
-    case err.internalError:
-      return "Error interno";
-    case err.invalidCustomToken:
-      return "Token personalizado invalido";
     case "auth/too-many-requests":
       return "Ha intentado esta acción demasiada veces. Espere un momento e intentelo nuevamente más tarde.";
     default:

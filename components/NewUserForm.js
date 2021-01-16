@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
 import auth from "@react-native-firebase/auth";
 
-const NewUserForm = () => {
+const NewUserForm = ({ navigation }) => {
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e) => {
+      console.log(navigation);
+      if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
+      e.preventDefault();
+    });
+  }, [navigation]);
+
   const logout = () => {
     auth().signOut();
   };
@@ -11,6 +19,14 @@ const NewUserForm = () => {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text>Hola new user</Text>
+      </View>
+      <View>
+        <TouchableHighlight
+          style={styles.logout}
+          onPress={() => navigation.navigate("Main")}
+        >
+          <Text style={styles.logoutText}>Prube navigation</Text>
+        </TouchableHighlight>
       </View>
       <View>
         <TouchableHighlight style={styles.logout} onPress={logout}>
