@@ -34,7 +34,7 @@ const AppStack = () => (
     <Stack.Screen
       name="NewUserForm"
       component={NewUserForm}
-      options={{ title: "Crear usuario" }}
+      options={{ title: "Crear usuario", headerShown: false }}
     />
   </Stack.Navigator>
 );

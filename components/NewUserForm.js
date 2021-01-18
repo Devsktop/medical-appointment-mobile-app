@@ -1,11 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import auth from "@react-native-firebase/auth";
+import globalStyles from "../styles";
+import StepsIndicator from "./NewUserStepsIndicator";
 
 const NewUserForm = ({ navigation }) => {
+  const [currentScreen, setCurrentScreen] = useState(0);
+  const [userData, setUserData] = useState({
+    names: "",
+    lastNames: "",
+    dni: "",
+    bornDate: "",
+    weight: "",
+    height: "",
+    bloodType: "",
+    medicalHistory: {
+      vih: false,
+      obesity: false,
+      anemia: false,
+      bleedingDisorders: false,
+      peripheralVascularDisease: false,
+      rheumatoidArthritis: false,
+      heartFailure: false,
+      renalFailure: false,
+      coronaryDisease: false,
+      bronchialAsthma: false,
+      obstructiveLungDisease: false,
+      depression: false,
+      diabetes: false,
+      arterialHypertension: false,
+      hypothyroidism: false,
+      liverDisease: false,
+      lymphoma: false,
+      neurologicalDisorders: false,
+      cancer: false,
+      paralysis: false,
+      smoker: false,
+      alcoholic: false,
+      drugAddict: false,
+      gestationState: false,
+      nursing: false,
+      disability: false,
+    },
+  });
   useEffect(() => {
     navigation.addListener("beforeRemove", (e) => {
-      console.log(navigation);
       if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
       e.preventDefault();
     });
@@ -16,51 +56,18 @@ const NewUserForm = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text>Hola new user</Text>
-      </View>
+    <LinearGradient
+      colors={["#3867B4", "#0F94B4"]}
+      style={globalStyles.container}
+    >
       <View>
-        <TouchableHighlight
-          style={styles.logout}
-          onPress={() => navigation.navigate("Main")}
-        >
-          <Text style={styles.logoutText}>Prube navigation</Text>
-        </TouchableHighlight>
+        <Text style={globalStyles.screenTitle}>Registro de paciente</Text>
       </View>
-      <View>
-        <TouchableHighlight style={styles.logout} onPress={logout}>
-          <Text style={styles.logoutText}>Inicia sesión con otra cuenta</Text>
-        </TouchableHighlight>
-      </View>
-    </View>
+      <StepsIndicator current={6} />
+    </LinearGradient>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  content: {
-    height: "90%",
-    justifyContent: "center",
-  },
-  logout: {
-    marginVertical: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "blue",
-    borderRadius: 10,
-    width: "100%",
-  },
-  logoutText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-});
+const styles = StyleSheet.create({});
 
 export default NewUserForm;
