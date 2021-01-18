@@ -7,6 +7,7 @@ export default class Loading extends React.Component {
     auth().onAuthStateChanged((user) => {
       console.log(auth().currentUser);
       console.log(user);
+      console.log(user ? "Main" : "LoginController");
       this.props.navigation.navigate(user ? "Main" : "LoginController");
     });
   }

@@ -8,6 +8,7 @@ const NewUserStepsIndicator = ({ cant = 6, current }) => {
     indicators.push(
       <View
         style={[styles.indicator, i === current ? styles.indicatorActive : ""]}
+        key={i}
       />
     );
   }

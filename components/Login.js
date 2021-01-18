@@ -21,7 +21,6 @@ const Login = ({ setScreen }) => {
 
   const handleLogin = () => {
     const { email, password } = user;
-    console.log("hlaaaaaa");
     if (!(!/\S+@\S+\.\S+/.test(email.trim()) || password.trim() === "")) {
       setScreen("loading");
       auth()

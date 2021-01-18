@@ -23,6 +23,7 @@ const Main = ({ navigation }) => {
   }, [navigation]);
 
   useEffect(() => {
+    console.log("renderizé main");
     const focusListener = navigation.addListener("focus", () => {
       validateUser();
     });
@@ -35,6 +36,7 @@ const Main = ({ navigation }) => {
 
   const validateUser = () => {
     const { currentUser } = auth();
+    console.log(currentUser);
     if (!currentUser) {
       navigation.navigate("LoginController");
     } else {
@@ -46,8 +48,11 @@ const Main = ({ navigation }) => {
         .then((doc) => {
           if (doc.exists) {
             const { isNewUser } = doc.data();
-            if (isNewUser) navigation.navigate("NewUserForm");
-            else {
+            if (isNewUser) {
+              console.log("i am new user");
+              navigation.navigate("NewUserForm");
+              setLoading(false);
+            } else {
               setUser(currentUser);
               setLoading(false);
             }

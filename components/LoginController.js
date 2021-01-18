@@ -17,12 +17,13 @@ const LoginCotroller = ({ navigation }) => {
 
   useEffect(() => {
     navigation.addListener("beforeRemove", (e) => {
-      if (screen !== "init") return;
+      if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
       e.preventDefault();
     });
-  }, [navigation, screen]);
+  }, [navigation]);
 
   useEffect(() => {
+    console.log("renderizé controler");
     const focusListener = navigation.addListener("blur", () => {
       setScreen("init");
     });
