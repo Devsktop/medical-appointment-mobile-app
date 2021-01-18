@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  TouchableHighlight,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, TextInput, View, FlatList } from "react-native";
 
-// const specialtieImg = require("../assets/logo.png");
+// Components
+import SpecialtieBox from "./SpecialtieBox";
 
 const Specialties = () => {
   const [searchBar, setSearchBar] = useState("");
-  const [specialtieOption, setSpecialtieOption] = useState([
-    (id: 1),
-    (specialtie: "Ginecología"),
-    (img: ""),
+  const [specialtieOptions, setSpecialtieOptions] = useState([
+    { id: 1, specialtie: "Ginecología", specialtieImage: "" },
+    { id: 2, specialtie: "Cardiología", specialtieImage: "" },
   ]);
 
   return (
@@ -32,15 +25,19 @@ const Specialties = () => {
           value={searchBar}
         />
       </View>
-
-      <View>
-        <TouchableHighlight OnPress="">
-          {/* <Image source={specialtieImg} /> */}
-          <Text>Ginecología</Text>
-        </TouchableHighlight>
-      </View>
+      <FlatList>
+        {Object.keys(specialtieOptions).map((specialtieOptionKey) => (
+          <SpecialtieBox
+            key={specialtieOptionKey}
+            specialty={specialtieOptionKey.specialtie}
+            img={specialtieOptionKey.specialtieImage}
+          />
+        ))}
+      </FlatList>
     </>
   );
 };
+
+const styles = StyleSheet.create({});
 
 export default Specialties;
