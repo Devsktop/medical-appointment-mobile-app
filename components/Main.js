@@ -11,6 +11,7 @@ import {
   ScrollView,
   ImageBackground
 } from "react-native";
+import Icon from 'react-native-vector-icons/Ionicons';
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 
@@ -20,6 +21,7 @@ const icon2 = require('../assets/mainImg/icon2.png');
 const icon3 = require('../assets/mainImg/icon3.png');
 const icon4 = require('../assets/mainImg/icon4.png');
 const background = require('../assets/mainImg/fondo.jpg');
+
 
 
 
@@ -141,7 +143,8 @@ const styles = StyleSheet.create({
   banner: {
 alignItems: 'center',
 height:'30%',
-position: 'absolute'
+position: 'absolute',
+flex: 1
   },
   bookAppointment:{
     position: 'absolute',
@@ -155,13 +158,15 @@ position: 'absolute'
 
   },body:{
     marginTop: 20,
+    flex: 1
 
 
   },
   footer:{
     backgroundColor: 'white',
     position: 'absolute',
-    marginTop:'135%',
+    marginTop: '130%',
+    flex: 1,
     height: 80,
   },
   footerIcons:{
@@ -173,7 +178,7 @@ justifyContent: 'space-between',
 
     flexDirection: 'row',
     justifyContent: 'space-between',
-      },
+  },
 
   icons:{
 padding: 5,
@@ -199,12 +204,12 @@ marginHorizontal: 40,
   background:{
     width:500,
     height:150,
-    marginTop: 15
+    marginTop: 15,
   },
   appointmentText:{
     fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 10
+    fontWeight: "bold",
+    marginTop: 10,
   }
 });
 
