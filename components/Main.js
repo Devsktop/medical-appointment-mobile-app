@@ -12,14 +12,11 @@ import {
   ImageBackground
 } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
+
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 
 const banner = require('../assets/mainImg/female-GP-online.jpg');
-const icon1 = require('../assets/mainImg/icon1.png');
-const icon2 = require('../assets/mainImg/icon2.png');
-const icon3 = require('../assets/mainImg/icon3.png');
-const icon4 = require('../assets/mainImg/icon4.png');
 const background = require('../assets/mainImg/fondo.jpg');
 
 
@@ -110,17 +107,19 @@ keyExtractor={appointments => appointments.id}
 
       <View style={styles.footerIcons}>
         <TouchableHighlight>
-      <Image source={icon1} style={styles.icons}/>
+      <Icon name="home" size={30} color="#4F8EF7" style={{marginLeft:30}}/>
       </TouchableHighlight>
-      <Image source={icon2} style={styles.icons}/>
-      <Image source={icon3} style={styles.icons}/>
-      <Image source={icon4} style={styles.icons}/>
+      <Icon name="medkit-outline" size={30} color="gray" />
+      <Icon name="calendar" size={30} color="gray" />
+      
+      
+      <Icon name="ios-person" size={30} color="gray" style={{marginRight:20}}/>
       </View>
       <View style={styles.footerText}>
-      <Text style={{marginLeft:35}}>Inicio </Text> 
-      <Text style={{marginRight:10}}>Especialidades </Text> 
-      <Text style={{marginRight:35}}>Citas </Text> 
-      <Text style={{marginRight:20}}>Mi Perfil </Text> 
+      <Text style={{marginLeft:30}}>Inicio </Text> 
+      <Text style={{marginRight:10, marginLeft:10}}>Especialidades </Text> 
+      <Text style={{marginRight:20}}>Citas </Text> 
+      <Text style={{marginRight:5}}>Mi Perfil </Text> 
       </View>
 
       </View>
@@ -180,10 +179,7 @@ justifyContent: 'space-between',
     justifyContent: 'space-between',
   },
 
-  icons:{
-padding: 5,
-marginHorizontal: 40,
-  },
+
   logout: {
     marginVertical: 20,
     paddingVertical: 10,
