@@ -162,11 +162,10 @@ const styles = StyleSheet.create({
   },
   body: {
     marginTop: 20,
+    flex: 1,
   },
   footer: {
     backgroundColor: "white",
-    position: "absolute",
-    marginTop: "135%",
     position: "absolute",
     marginTop: "130%",
     flex: 1,
@@ -175,10 +174,6 @@ const styles = StyleSheet.create({
   footerIcons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    footerText: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
   },
   footerText: {
     flexDirection: "row",
@@ -212,3 +207,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default Main;
