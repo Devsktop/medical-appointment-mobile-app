@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -5,11 +6,12 @@ import {
   TextInput,
   View,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
 
-export default Login = ({ navigation, setScreen }) => {
+const Login = ({ setScreen }) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -17,24 +19,25 @@ export default Login = ({ navigation, setScreen }) => {
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  console.log(buttonDisabled);
-
   const handleLogin = () => {
     const { email, password } = user;
-
-    if (!/\S+@\S+\.\S+/.test(email.trim()) || password.trim() === "") {
-    } else {
+    if (!(!/\S+@\S+\.\S+/.test(email.trim()) || password.trim() === "")) {
+      setScreen("loading");
       auth()
         .signInWithEmailAndPassword(email, password)
-        .then(() => navigation.navigate("Main"))
-        .catch((error) => this.setState({ errorMessage: error.message }));
+        .catch((error) => {
+          console.log(error);
+          console.log(error.code);
+          Alert.alert("Lo sentimos", loginErrorHandle(error.code), [
+            {
+              text: "Aceptar",
+            },
+          ]);
+        });
     }
   };
 
   const handleOnChange = (value, name) => {
-    console.log(value);
     setUser({ ...user, [name]: value.trim() });
     validateUser(value, name);
   };
@@ -58,25 +61,27 @@ export default Login = ({ navigation, setScreen }) => {
       </View>
 
       <View>
-        {errorMessage && <Text style={{ color: "red" }}>{errorMessage}</Text>}
-
-        <View>
+        <View style={globalStyles.inputBox}>
           <TextInput
-            style={styles.textInput}
+            style={globalStyles.inputField}
             autoCapitalize="none"
-            placeholder="Email"
+            placeholder="Ingrese su correo"
+            placeholderTextColor="#b8b8b8"
             onChangeText={(email) => handleOnChange(email, "email")}
             value={user.email}
           />
         </View>
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={(password) => handleOnChange(password, "password")}
-          value={user.password}
-        />
+        <View style={globalStyles.inputBox}>
+          <TextInput
+            secureTextEntry
+            style={globalStyles.inputField}
+            autoCapitalize="none"
+            placeholder="Ingrese su contraseña"
+            placeholderTextColor="#b8b8b8"
+            onChangeText={(password) => handleOnChange(password, "password")}
+            value={user.password}
+          />
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -98,7 +103,7 @@ export default Login = ({ navigation, setScreen }) => {
         <TouchableHighlight
           underlayColor="#2985b3"
           style={[globalStyles.button, globalStyles.darkButton]}
-          onPress={() => setScreen("login")}
+          onPress={() => setScreen("signup")}
         >
           <Text style={globalStyles.buttonText}>Registrate</Text>
         </TouchableHighlight>
@@ -131,3 +136,20 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 });
+
+const loginErrorHandle = (err) => {
+  switch (err) {
+    case "auth/email-already-exists":
+      return "Este correo ya está siendo usado por otro usuario";
+    case "auth/wrong-password":
+      return "Contraseña incorrecta";
+    case "auth/user-not-found":
+      return "No se encontró cuenta del usuario con el correo especificado";
+    case "auth/too-many-requests":
+      return "Ha intentado esta acción demasiada veces. Espere un momento e intentelo nuevamente más tarde.";
+    default:
+      return "algo ha ido mal";
+  }
+};
+
+export default Login;

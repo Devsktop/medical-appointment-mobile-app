@@ -10,6 +10,7 @@ import globalStyles from "../styles";
 
 const logo = require("../assets/logo.png");
 
+<<<<<<< HEAD
 const LoginCotroller = ({ setScreen }) => {
   return (
     <>
@@ -41,6 +42,37 @@ const LoginCotroller = ({ setScreen }) => {
     </>
   );
 };
+=======
+const LoginCotroller = ({ setScreen }) => (
+  <>
+    <View style={styles.imageContainer}>
+      <Image source={logo} />
+      <Text style={styles.bigText}>
+        Agenda tu consulta en tu teléfono en minutos
+      </Text>
+    </View>
+    <View style={styles.buttonContainer}>
+      <TouchableHighlight
+        underlayColor="#2985b3"
+        style={[globalStyles.button, styles.loginButton]}
+        onPress={() => setScreen("login")}
+      >
+        <Text style={globalStyles.buttonText}>Iniciar Sesión</Text>
+      </TouchableHighlight>
+      <TouchableHighlight
+        underlayColor="#2985b3"
+        style={[globalStyles.button, globalStyles.darkButton]}
+        onPress={() => setScreen("signup")}
+      >
+        <Text style={globalStyles.buttonText}>Nuevo Usuario</Text>
+      </TouchableHighlight>
+      <Text style={styles.littleText}>
+        Al continuar acepta con nuestros términos y condiciones.
+      </Text>
+    </View>
+  </>
+);
+>>>>>>> 15ac57b2359916338980f375b4098baf8e332833
 
 const styles = StyleSheet.create({
   imageContainer: {

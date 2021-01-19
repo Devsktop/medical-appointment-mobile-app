@@ -41,29 +41,16 @@ const Main = ({ navigation }) => {
     );
   };
 
-  const validateUser = () => {
-    const { currentUser } = auth();
-    if (!currentUser) {
-      navigation.navigate("SignUp");
-    } else {
-      firestore()
-        .collection("users")
-        .doc(currentUser.uid)
-        .get()
-        .then((doc) => {
-          /*  if (doc.exists) {
-            const { isNewUser } = doc.data();
-            if (isNewUser) navigation.navigate("NewUserForm");
-            else {*/
-          setUser(currentUser);
-          setLoading(false);
-          // }
-          //}
-        });
-    }
-  };
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e) => {
+      console.log(navigation);
+      if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
+      e.preventDefault();
+    });
+  }, [navigation]);
 
   useEffect(() => {
+    console.log("renderizé main");
     const focusListener = navigation.addListener("focus", () => {
       validateUser();
     });
@@ -72,6 +59,33 @@ const Main = ({ navigation }) => {
 
   const logout = () => {
     auth().signOut();
+  };
+
+  const validateUser = () => {
+    const { currentUser } = auth();
+    console.log(currentUser);
+    if (!currentUser) {
+      navigation.navigate("LoginController");
+    } else {
+      console.log(currentUser.uid);
+      firestore()
+        .collection("users")
+        .doc(currentUser.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const { isNewUser } = doc.data();
+            if (isNewUser) {
+              console.log("i am new user");
+              navigation.navigate("NewUserForm");
+              setLoading(false);
+            } else {
+              setUser(currentUser);
+              setLoading(false);
+            }
+          }
+        });
+    }
   };
 
   if (loading)
