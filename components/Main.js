@@ -26,20 +26,22 @@ const Main = ({ navigation }) => {
     { id: 1, specialty: "Gastroenterología", doctor: "José Jiménez" },
     { id: 2, specialty: "Gastroenterología", doctor: "Alguien Más" },
   ]);
-  const Banner = ({ item }) => {
-    return (
-      <View>
-        <ImageBackground source={background} style={styles.background}>
-          <View style={styles.Appointment}>
-            <Text style={styles.appointmentText}>
-              Especialidad: {item.specialty}
-            </Text>
-            <Text style={styles.appointmentText}>Médico: {item.doctor}</Text>
-          </View>
-        </ImageBackground>
-      </View>
-    );
-  };
+  const Banner = ({ item }) => (
+    <View>
+      <ImageBackground source={background} style={styles.background}>
+        <View style={styles.Appointment}>
+          <Text style={styles.appointmentText}>
+            Especialidad:
+            {item.specialty}
+          </Text>
+          <Text style={styles.appointmentText}>
+            Médico:
+            {item.doctor}
+          </Text>
+        </View>
+      </ImageBackground>
+    </View>
+  );
 
   useEffect(() => {
     navigation.addListener("beforeRemove", (e) => {
@@ -73,17 +75,14 @@ const Main = ({ navigation }) => {
         .doc(currentUser.uid)
         .get()
         .then((doc) => {
-          if (doc.exists) {
+          /*  if (doc.exists) {
             const { isNewUser } = doc.data();
-            if (isNewUser) {
-              console.log("i am new user");
-              navigation.navigate("NewUserForm");
-              setLoading(false);
-            } else {
-              setUser(currentUser);
-              setLoading(false);
-            }
-          }
+            if (isNewUser) navigation.navigate("NewUserForm");
+            else { */
+          setUser(currentUser);
+          setLoading(false);
+          // }
+          // }
         });
     }
   };
@@ -107,7 +106,7 @@ const Main = ({ navigation }) => {
         <FlatList
           data={appointments}
           renderItem={({ item }) => <Banner item={item} />}
-          keyExtractor={(appointments) => appointments.id}
+          keyExtractor={(appointment) => appointment.id}
         />
 
         <View>
@@ -139,7 +138,8 @@ const Main = ({ navigation }) => {
         <View style={styles.footerText}>
           <Text style={{ marginLeft: 30 }}>Inicio </Text>
           <Text style={{ marginRight: 10, marginLeft: 10 }}>
-            Especialidades{" "}
+            Especialidades
+            {`Especilidad de prueba ${2}`}
           </Text>
           <Text style={{ marginRight: 20 }}>Citas </Text>
           <Text style={{ marginRight: 5 }}>Mi Perfil </Text>
