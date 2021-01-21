@@ -11,6 +11,7 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
+
 import Icon from "react-native-vector-icons/Ionicons";
 
 import auth from "@react-native-firebase/auth";
@@ -75,14 +76,17 @@ const Main = ({ navigation }) => {
         .doc(currentUser.uid)
         .get()
         .then((doc) => {
-          /*  if (doc.exists) {
+          if (doc.exists) {
             const { isNewUser } = doc.data();
-            if (isNewUser) navigation.navigate("NewUserForm");
-            else { */
-          setUser(currentUser);
-          setLoading(false);
-          // }
-          // }
+            if (isNewUser) {
+              console.log("i am new user");
+              navigation.navigate("NewUserForm");
+              setLoading(false);
+            } else {
+              setUser(currentUser);
+              setLoading(false);
+            }
+          }
         });
     }
   };
