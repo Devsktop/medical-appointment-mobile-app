@@ -8,6 +8,7 @@ import StepsIndicator from "./NewUserStepsIndicator";
 // Forms
 import PersonalDataForm from "./newUserForms/PersonalDataForm";
 import MedicalDataForm from "./newUserForms/MedicalDataForm";
+import MedicalHistoryOne from "./newUserForms/MedicalHistoryOne";
 
 const NewUserForm = ({ navigation }) => {
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -20,32 +21,32 @@ const NewUserForm = ({ navigation }) => {
     height: "",
     bloodType: "",
     medicalHistory: {
-      vih: false,
-      obesity: false,
-      anemia: false,
-      bleedingDisorders: false,
-      peripheralVascularDisease: false,
-      rheumatoidArthritis: false,
-      heartFailure: false,
-      renalFailure: false,
-      coronaryDisease: false,
-      bronchialAsthma: false,
-      obstructiveLungDisease: false,
-      depression: false,
-      diabetes: false,
-      arterialHypertension: false,
-      hypothyroidism: false,
-      liverDisease: false,
-      lymphoma: false,
-      neurologicalDisorders: false,
-      cancer: false,
-      paralysis: false,
-      smoker: false,
-      alcoholic: false,
-      drugAddict: false,
-      gestationState: false,
-      nursing: false,
-      disability: false,
+      vih: null,
+      obesity: null,
+      anemia: null,
+      bleedingDisorders: null,
+      peripheralVascularDisease: null,
+      rheumatoidArthritis: null,
+      heartFailure: null,
+      renalFailure: null,
+      coronaryDisease: null,
+      bronchialAsthma: null,
+      obstructiveLungDisease: null,
+      depression: null,
+      diabetes: null,
+      arterialHypertension: null,
+      hypothyroidism: null,
+      liverDisease: null,
+      lymphoma: null,
+      neurologicalDisorders: null,
+      cancer: null,
+      paralysis: null,
+      smoker: null,
+      alcoholic: null,
+      drugAddict: null,
+      gestationState: null,
+      nursing: null,
+      disability: null,
     },
   });
   useEffect(() => {
@@ -70,6 +71,11 @@ const NewUserForm = ({ navigation }) => {
   const handleFormChange = (value, name, type) => {
     if (type === "user") {
       setUserData({ ...userData, [name]: value });
+    } else if (type === "history") {
+      setUserData({
+        ...userData,
+        medicalHistory: { ...userData.medicalHistory, [name]: value },
+      });
     }
   };
 
@@ -85,6 +91,13 @@ const NewUserForm = ({ navigation }) => {
   } else if (currentScreen === 1) {
     ScreenForm = (
       <MedicalDataForm
+        userData={userData}
+        handleFormChange={handleFormChange}
+      />
+    );
+  } else if (currentScreen === 2) {
+    ScreenForm = (
+      <MedicalHistoryOne
         userData={userData}
         handleFormChange={handleFormChange}
       />
