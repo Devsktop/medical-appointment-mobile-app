@@ -9,6 +9,9 @@ import StepsIndicator from "./NewUserStepsIndicator";
 import PersonalDataForm from "./newUserForms/PersonalDataForm";
 import MedicalDataForm from "./newUserForms/MedicalDataForm";
 import MedicalHistoryOne from "./newUserForms/MedicalHistoryOne";
+import MedicalHistoryTwo from "./newUserForms/MedicalHistoryTwo";
+import MedicalHistoryThree from "./newUserForms/MedicalHistoryThree";
+import SpecialCondition from "./newUserForms/SpecialCondition";
 
 const NewUserForm = ({ navigation }) => {
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -32,6 +35,7 @@ const NewUserForm = ({ navigation }) => {
       coronaryDisease: null,
       bronchialAsthma: null,
       obstructiveLungDisease: null,
+      PulmonaryCirculationDisorder: null,
       depression: null,
       diabetes: null,
       arterialHypertension: null,
@@ -102,6 +106,27 @@ const NewUserForm = ({ navigation }) => {
         handleFormChange={handleFormChange}
       />
     );
+  } else if (currentScreen === 3) {
+    ScreenForm = (
+      <MedicalHistoryTwo
+        userData={userData}
+        handleFormChange={handleFormChange}
+      />
+    );
+  } else if (currentScreen === 4) {
+    ScreenForm = (
+      <MedicalHistoryThree
+        userData={userData}
+        handleFormChange={handleFormChange}
+      />
+    );
+  } else if (currentScreen === 5) {
+    ScreenForm = (
+      <SpecialCondition
+        userData={userData}
+        handleFormChange={handleFormChange}
+      />
+    );
   }
 
   return (
@@ -159,6 +184,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   contentContainer: {
+    justifyContent: "flex-start",
     width: "100%",
   },
   dateText: {
