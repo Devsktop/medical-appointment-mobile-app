@@ -45,7 +45,8 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
           placeholder="Ingrese sus apellidos"
           placeholderTextColor="#b8b8b8"
           onChangeText={(lastNames) =>
-            handleFormChange(lastNames, "lastNames", "user")}
+            handleFormChange(lastNames, "lastNames", "user")
+          }
           value={userData.lastNames}
         />
       </View>
@@ -54,6 +55,7 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
           style={globalStyles.inputField}
           autoCapitalize="none"
           placeholder="Ingrese su documento de identidad"
+          keyboardType="numeric"
           placeholderTextColor="#b8b8b8"
           onChangeText={(dni) => handleFormChange(dni, "dni", "user")}
           value={userData.dni}

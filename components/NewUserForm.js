@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableHighlight,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
@@ -66,14 +72,49 @@ const NewUserForm = ({ navigation }) => {
 
   const handleScreenChange = (action) => {
     console.log(userData);
-    if (action === "add" && currentScreen < 6)
+    if (action === "add" && currentScreen < 5)
       setCurrentScreen(currentScreen + 1);
     else if (action === "less" && currentScreen > 0)
       setCurrentScreen(currentScreen - 1);
   };
 
+  const handleSubmitForm = () => {
+    let isValid = true;
+    const {
+      names,
+      lastNames,
+      dni,
+      bornDate,
+      weight,
+      height,
+      bloodType,
+      medicalHistory,
+    } = userData;
+
+    if (
+      names.trim() === "" ||
+      lastNames.trim() === "" ||
+      dni.trim() === "" ||
+      bornDate.trim() === "" ||
+      weight.trim() === "" ||
+      height.trim() === "" ||
+      bloodType.trim() === ""
+    )
+      isValid = false;
+
+    Object.keys(medicalHistory).forEach((key) => {
+      if (medicalHistory[key] === null) isValid = false;
+    });
+
+    if (isValid) {
+      // Do database set and go to main screen
+    } else {
+      Alert.alert("Debe rellenar todos los datos para continuar");
+    }
+  };
+
   const handleFormChange = (value, name, type) => {
-    if (type === "user") {
+    if (type === "user" && validInputs(value, name)) {
       setUserData({ ...userData, [name]: value });
     } else if (type === "history") {
       setUserData({
@@ -81,6 +122,23 @@ const NewUserForm = ({ navigation }) => {
         medicalHistory: { ...userData.medicalHistory, [name]: value },
       });
     }
+  };
+
+  const validInputs = (value, name) => {
+    const containLetters = /\D/;
+    const containNumbers = /\d/;
+    if (
+      (name === "names" || name === "lastNames") &&
+      containNumbers.test(value)
+    )
+      return false;
+    if (
+      (name === "dni" || name === "weight" || name === "height") &&
+      containLetters.test(value)
+    )
+      return false;
+
+    return true;
   };
 
   let ScreenForm = <Text>Hola mundo</Text>;
@@ -136,21 +194,38 @@ const NewUserForm = ({ navigation }) => {
     >
       <View>
         <Text style={globalStyles.screenTitle}>Registro de paciente</Text>
-        <StepsIndicator current={currentScreen} />
+        <StepsIndicator cant={5} current={currentScreen} />
       </View>
 
       <View style={styles.contentContainer}>{ScreenForm}</View>
 
       <View style={styles.buttonContainer}>
-        <TouchableHighlight
-          underlayColor="#2985b3"
-          style={[globalStyles.button, globalStyles.lightButton]}
-          onPress={() => handleScreenChange("add")}
-        >
-          <Text style={[globalStyles.buttonText, globalStyles.lightButtonText]}>
-            Siguiente
-          </Text>
-        </TouchableHighlight>
+        {currentScreen === 5 ? (
+          <TouchableHighlight
+            underlayColor="#2985b3"
+            style={[globalStyles.button, globalStyles.lightButton]}
+            onPress={() => handleSubmitForm()}
+          >
+            <Text
+              style={[globalStyles.buttonText, globalStyles.lightButtonText]}
+            >
+              Finalizar
+            </Text>
+          </TouchableHighlight>
+        ) : (
+          <TouchableHighlight
+            underlayColor="#2985b3"
+            style={[globalStyles.button, globalStyles.lightButton]}
+            onPress={() => handleScreenChange("add")}
+          >
+            <Text
+              style={[globalStyles.buttonText, globalStyles.lightButtonText]}
+            >
+              Siguiente
+            </Text>
+          </TouchableHighlight>
+        )}
+
         {currentScreen === 0 ? (
           <TouchableHighlight
             underlayColor="#2985b3"

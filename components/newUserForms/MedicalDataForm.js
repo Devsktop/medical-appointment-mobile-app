@@ -12,6 +12,7 @@ const PersonalDataForm = ({ userData, handleFormChange }) => (
         autoCapitalize="none"
         placeholder="Peso"
         placeholderTextColor="#b8b8b8"
+        keyboardType="numeric"
         onChangeText={(weight) => handleFormChange(weight, "weight", "user")}
         value={userData.weight}
       />
@@ -22,6 +23,7 @@ const PersonalDataForm = ({ userData, handleFormChange }) => (
         autoCapitalize="none"
         placeholder="Altura"
         placeholderTextColor="#b8b8b8"
+        keyboardType="numeric"
         onChangeText={(height) => handleFormChange(height, "height", "user")}
         value={userData.height}
       />
