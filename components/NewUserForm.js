@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+
 import globalStyles from "../styles";
 import StepsIndicator from "./NewUserStepsIndicator";
 
@@ -71,7 +73,6 @@ const NewUserForm = ({ navigation }) => {
   };
 
   const handleScreenChange = (action) => {
-    console.log(userData);
     if (action === "add" && currentScreen < 5)
       setCurrentScreen(currentScreen + 1);
     else if (action === "less" && currentScreen > 0)
@@ -95,7 +96,7 @@ const NewUserForm = ({ navigation }) => {
       names.trim() === "" ||
       lastNames.trim() === "" ||
       dni.trim() === "" ||
-      bornDate.trim() === "" ||
+      bornDate === "" ||
       weight.trim() === "" ||
       height.trim() === "" ||
       bloodType.trim() === ""
@@ -107,7 +108,17 @@ const NewUserForm = ({ navigation }) => {
     });
 
     if (isValid) {
-      // Do database set and go to main screen
+      const { currentUser } = auth();
+      firestore()
+        .collection("users")
+        .doc(currentUser.uid)
+        .update({
+          isNewUser: false,
+          userData,
+        })
+        .then(() => {
+          navigation.navigate("Success");
+        });
     } else {
       Alert.alert("Debe rellenar todos los datos para continuar");
     }
