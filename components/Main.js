@@ -78,6 +78,12 @@ const Main = ({ navigation }) => {
         <TouchableHighlight onPress={logout} style={styles.logout}>
           <Text style={styles.logoutText}>Cerrar Sesión</Text>
         </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => navigation.navigate("Profile")}
+          style={styles.logout}
+        >
+          <Text style={styles.logoutText}>go to profile</Text>
+        </TouchableHighlight>
       </View>
     </View>
   );

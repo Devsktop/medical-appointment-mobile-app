@@ -8,6 +8,7 @@ import LoginController from "./components/LoginController";
 import Main from "./components/Main";
 import NewUserForm from "./components/NewUserForm";
 import Success from "./components/newUserForms/Success";
+import Profile from "./components/Profile";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,11 @@ const AppStack = () => (
     <Stack.Screen
       name="Success"
       component={Success}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={Profile}
       options={{ headerShown: false }}
     />
     <Stack.Screen
