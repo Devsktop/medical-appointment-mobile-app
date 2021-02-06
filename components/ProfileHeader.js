@@ -1,12 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LinearGradient from "react-native-linear-gradient";
 import { CommonActions } from "@react-navigation/native";
 
 const ProfileHeader = ({ navigation }) => {
+  const user = useSelector((state) => state.user.user);
+
   const handleGoBack = () => {
-    console.log(CommonActions);
     navigation.dispatch(CommonActions.goBack());
   };
   return (

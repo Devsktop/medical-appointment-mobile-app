@@ -1,30 +1,15 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import React from "react";
 
-import AppStack from './AppStack';
+// Redux
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
-const App = () => {
-  console.log('daddydfgffghdgfdgfdg');
-  return (
-    <>
-      <AppStack />
-    </>
-  );
-};
+import AppStack from "./AppStack";
 
-const styles = StyleSheet.create({
-  letra: {
-    textAlign: 'center',
-    backgroundColor: 'purple',
-  },
-});
+const App = () => (
+  <Provider store={store}>
+    <AppStack />
+  </Provider>
+);
 
 export default App;
-

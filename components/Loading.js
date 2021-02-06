@@ -1,26 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import auth from "@react-native-firebase/auth";
+import { setUserAction } from "../redux/actions/UserAction";
 
-export default class Loading extends React.Component {
-  componentDidMount() {
+const Loading = ({ navigation }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
     auth().onAuthStateChanged((user) => {
-      console.log(auth().currentUser);
-      console.log(user);
-      console.log(user ? "Main" : "LoginController");
-      this.props.navigation.navigate(user ? "Main" : "LoginController");
+      if (user) {
+        dispatch(setUserAction(navigation));
+      }
+      navigation.navigate(user ? "Main" : "LoginController");
     });
-  }
+  }, []);
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Loading esta vaina</Text>
-        <ActivityIndicator size="large" color="red" />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <Text>Loading esta vaina</Text>
+      <ActivityIndicator size="large" color="red" />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -29,3 +30,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+export default Loading;
