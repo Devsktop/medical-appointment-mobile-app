@@ -97,6 +97,7 @@ const Main = ({ navigation }) => {
           <FlatList
             data={appointments}
             renderItem={({ item }) => <Banner item={item} />}
+            keyExtractor={(item) => item.id.toString()}
           />
         </View>
 

@@ -1,28 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import LinearGradient from "react-native-linear-gradient";
+import { View, StyleSheet } from "react-native";
+import ProfileHeader from "./ProfileHeader";
 import globalStyles from "../styles";
 
-const Profile = () => (
+const Profile = ({ navigation }) => (
   <View style={[globalStyles.container, styles.container]}>
-    <LinearGradient style={styles.header} colors={["#3867B4", "#0F94B4"]}>
-      <View style={styles.backButton}>
-        <Icon name="arrow-left" size={25} color="white" />
-      </View>
-      <View style={styles.headerInfo}>
-        <View style={styles.headerInfoUser}>
-          <Icon name="user-circle-o" color="#fff" size={50} />
-          <View style={styles.headerInfoUserTextBox}>
-            <Text style={styles.headerInfoUserText}>Jhoseph Guerrero</Text>
-            <Text style={styles.headerInfoUserText}>21 Años</Text>
-          </View>
-        </View>
-        <TouchableHighlight style={styles.updateProfileButton}>
-          <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
-        </TouchableHighlight>
-      </View>
-    </LinearGradient>
+    <ProfileHeader navigation={navigation} />
   </View>
 );
 
