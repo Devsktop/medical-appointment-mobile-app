@@ -29,7 +29,10 @@ const ProfileHeader = ({ navigation }) => {
             <Text style={styles.headerInfoUserText}>21 Años</Text>
           </View>
         </View>
-        <TouchableHighlight style={styles.updateProfileButton}>
+        <TouchableHighlight
+          style={styles.updateProfileButton}
+          onPress={() => navigation.navigate("UpdateProfile")}
+        >
           <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
         </TouchableHighlight>
       </View>

@@ -9,6 +9,7 @@ import Main from "./components/Main";
 import NewUserForm from "./components/NewUserForm";
 import Success from "./components/newUserForms/Success";
 import Profile from "./components/Profile";
+import UpdateProfile from "./components/UpdateProfile";
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,11 @@ const AppStack = () => (
     <Stack.Screen
       name="Profile"
       component={Profile}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="UpdateProfile"
+      component={UpdateProfile}
       options={{ headerShown: false }}
     />
     <Stack.Screen
