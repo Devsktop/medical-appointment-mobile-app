@@ -124,6 +124,7 @@ const Main = ({ navigation }) => {
             size={30}
             color="gray"
             style={{ marginRight: 20 }}
+            onPress={() => navigation.navigate("Profile")}
           />
         </View>
 

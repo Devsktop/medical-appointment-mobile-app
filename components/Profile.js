@@ -1,28 +1,66 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import LinearGradient from "react-native-linear-gradient";
 import globalStyles from "../styles";
 
 const Profile = () => (
-  <View style={globalStyles.container}>
-    <View style={styles.header}>
-      <View style={styles.backButton}>Volver</View>
+  <View style={[globalStyles.container, styles.container]}>
+    <LinearGradient style={styles.header} colors={["#3867B4", "#0F94B4"]}>
+      <View style={styles.backButton}>
+        <Icon name="arrow-left" size={25} color="white" />
+      </View>
       <View style={styles.headerInfo}>
         <View style={styles.headerInfoUser}>
-          <Icon name="user-circle" color="#262626" size={50} />
-          <View style={styles.headerInfoUserText}>
-            <Text>Jhoseph Guerrero</Text>
-            <Text>21 Años</Text>
+          <Icon name="user-circle-o" color="#fff" size={50} />
+          <View style={styles.headerInfoUserTextBox}>
+            <Text style={styles.headerInfoUserText}>Jhoseph Guerrero</Text>
+            <Text style={styles.headerInfoUserText}>21 Años</Text>
           </View>
         </View>
         <TouchableHighlight style={styles.updateProfileButton}>
-          <Text>Editar perfil</Text>
+          <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
         </TouchableHighlight>
       </View>
-    </View>
+    </LinearGradient>
   </View>
 );
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 0,
+  },
+  header: {
+    padding: 15,
+  },
+  backButton: {
+    marginBottom: 20,
+  },
+  headerInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  headerInfoUser: {
+    flexDirection: "row",
+  },
+  headerInfoUserTextBox: {
+    marginLeft: 10,
+  },
+  headerInfoUserText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  updateProfileButton: {
+    borderRadius: 8,
+    padding: 8,
+    backgroundColor: "#ACFAC7",
+  },
+  updateProfileButtonText: {
+    color: "#356AB4",
+    fontSize: 15,
+  },
+});
 
 export default Profile;
