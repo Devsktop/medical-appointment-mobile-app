@@ -24,3 +24,9 @@ export function setUserAction(navigation) {
     }
   };
 }
+export const UPDATE_PROFILEPHOTO_URL = "UPDATE_PROFILEPHOTO_URL";
+
+export const updateProfilePhotoUrl = (url) => ({
+  type: UPDATE_PROFILEPHOTO_URL,
+  payload: { url },
+});
