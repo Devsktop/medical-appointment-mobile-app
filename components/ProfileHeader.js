@@ -25,12 +25,14 @@ const ProfileHeader = ({ navigation }) => (
         <TouchableHighlight
           style={styles.updateProfileButton}
           onPress={() => navigation.navigate("UpdateProfile")}
+          underlayColor="#769ad0"
         >
           <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.logoutButton}
           onPress={() => auth().signOut()}
+          underlayColor="#bf6b6b"
         >
           <Text style={styles.logoutButtonText}>Cerrar Sesión</Text>
         </TouchableHighlight>
