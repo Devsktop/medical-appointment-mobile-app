@@ -1,32 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LinearGradient from "react-native-linear-gradient";
 import { CommonActions } from "@react-navigation/native";
+
+// Components
 import ProfilePhoto from "./ProfilePhoto";
-
-const userNameSelector = (state) => {
-  const { names, lastNames } = state.user.userData;
-  const firstName = names.split(" ")[0];
-  const firstLastName = lastNames.split(" ")[0];
-
-  return `${firstName} ${firstLastName}`;
-};
-
-const userAgeSelector = (state) => {
-  const { bornDate } = state.user.userData;
-
-  const yearDiff = Date.now() - bornDate.toDate().getTime();
-  const ageDate = new Date(yearDiff);
-
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
-};
+import UserNameAge from "./UserNameAge";
 
 const ProfileHeader = ({ navigation }) => {
-  const userName = useSelector(userNameSelector);
-  const userAge = useSelector(userAgeSelector);
-
   const handleGoBack = () => {
     navigation.dispatch(CommonActions.goBack());
   };
@@ -43,10 +25,12 @@ const ProfileHeader = ({ navigation }) => {
       <View style={styles.headerInfo}>
         <View style={styles.headerInfoUser}>
           <ProfilePhoto width={70} height={70} />
-          <View style={styles.headerInfoUserTextBox}>
-            <Text style={styles.headerInfoUserText}>{userName}</Text>
-            <Text style={styles.headerInfoUserText}>{`${userAge} Años`}</Text>
-          </View>
+          <UserNameAge
+            textBoxStyle={{
+              justifyContent: "center",
+              marginLeft: 10,
+            }}
+          />
         </View>
         <TouchableHighlight
           style={styles.updateProfileButton}
