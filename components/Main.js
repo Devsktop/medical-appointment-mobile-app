@@ -93,7 +93,7 @@ const Main = ({ navigation }) => {
             <Text style={styles.logoutText}>Agendar una Cita</Text>
           </TouchableHighlight>
         </View>
-        <View>
+        <View style={styles.appointmentList}>
           <FlatList
             data={appointments}
             renderItem={({ item }) => <Banner item={item} />}
@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     borderRadius: 10,
     width: "100%",
+    height: 100,
   },
   logoutText: {
     color: "white",
@@ -212,6 +213,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 10,
+  },
+  appointmentList: {
+    padding: 80,
   },
 });
 

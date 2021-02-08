@@ -23,7 +23,6 @@ const LoginCotroller = ({ navigation }) => {
   }, [navigation]);
 
   useEffect(() => {
-    console.log("renderizé controler");
     const focusListener = navigation.addListener("blur", () => {
       setScreen("init");
     });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   View,
@@ -17,10 +17,11 @@ import firestore from "@react-native-firebase/firestore";
 import { loadingProfilePhoto } from "../redux/actions/utilsActions";
 import { updateProfilePhotoUrl } from "../redux/actions/UserAction";
 
+// Components
+import ProfilePhoto from "./ProfilePhoto";
+
 const UpdateProfilePhoto = () => {
-  const profilePhotoUrl = useSelector((state) => state.user.profilePhotoUrl);
   const dispatch = useDispatch();
-  console.log("renderize");
 
   const uploadImageToStorage = async (path) => {
     dispatch(loadingProfilePhoto(true));
@@ -59,24 +60,12 @@ const UpdateProfilePhoto = () => {
   };
 
   return (
-    <>
-      <TouchableWithoutFeedback onPress={chooseFile}>
-        <View style={[styles.container, styles.profileButton]}>
-          {profilePhotoUrl ? (
-            <View style={styles.profileContainer}>
-              <Image
-                source={{ uri: profilePhotoUrl }}
-                progressiveRenderingEnabled
-                style={styles.profilePhoto}
-              />
-            </View>
-          ) : (
-            <Icon name="user-circle-o" size={100} color="white" />
-          )}
-          <Icon name="plus" size={15} color="white" style={styles.plusIcon} />
-        </View>
-      </TouchableWithoutFeedback>
-    </>
+    <TouchableWithoutFeedback onPress={chooseFile}>
+      <View>
+        <ProfilePhoto width={110} height={110} />
+        <Icon name="plus" size={15} color="white" style={styles.plusIcon} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

@@ -4,9 +4,28 @@ import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import LinearGradient from "react-native-linear-gradient";
 import { CommonActions } from "@react-navigation/native";
+import ProfilePhoto from "./ProfilePhoto";
+
+const userNameSelector = (state) => {
+  const { names, lastNames } = state.user.userData;
+  const firstName = names.split(" ")[0];
+  const firstLastName = lastNames.split(" ")[0];
+
+  return `${firstName} ${firstLastName}`;
+};
+
+const userAgeSelector = (state) => {
+  const { bornDate } = state.user.userData;
+
+  const yearDiff = Date.now() - bornDate.toDate().getTime();
+  const ageDate = new Date(yearDiff);
+
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
 
 const ProfileHeader = ({ navigation }) => {
-  const user = useSelector((state) => state.user.user);
+  const userName = useSelector(userNameSelector);
+  const userAge = useSelector(userAgeSelector);
 
   const handleGoBack = () => {
     navigation.dispatch(CommonActions.goBack());
@@ -23,10 +42,10 @@ const ProfileHeader = ({ navigation }) => {
       </View>
       <View style={styles.headerInfo}>
         <View style={styles.headerInfoUser}>
-          <Icon name="user-circle-o" color="#fff" size={50} />
+          <ProfilePhoto width={70} height={70} />
           <View style={styles.headerInfoUserTextBox}>
-            <Text style={styles.headerInfoUserText}>Jhoseph Guerrero</Text>
-            <Text style={styles.headerInfoUserText}>21 Años</Text>
+            <Text style={styles.headerInfoUserText}>{userName}</Text>
+            <Text style={styles.headerInfoUserText}>{`${userAge} Años`}</Text>
           </View>
         </View>
         <TouchableHighlight
@@ -59,6 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   headerInfoUserTextBox: {
+    justifyContent: "center",
     marginLeft: 10,
   },
   headerInfoUserText: {

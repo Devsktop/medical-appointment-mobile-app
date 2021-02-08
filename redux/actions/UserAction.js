@@ -1,5 +1,6 @@
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+import { resolveConfig } from "prettier";
 
 export const SET_USER = "SET_USER";
 
@@ -24,6 +25,7 @@ export function setUserAction(navigation) {
     }
   };
 }
+
 export const UPDATE_PROFILEPHOTO_URL = "UPDATE_PROFILEPHOTO_URL";
 
 export const updateProfilePhotoUrl = (url) => ({

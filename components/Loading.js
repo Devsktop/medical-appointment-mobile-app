@@ -7,9 +7,11 @@ import { setUserAction } from "../redux/actions/UserAction";
 const Loading = ({ navigation }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    auth().onAuthStateChanged((user) => {
+    auth().onAuthStateChanged(async (user) => {
       if (user) {
-        dispatch(setUserAction(navigation));
+        await new Promise((resolve) =>
+          resolve(dispatch(setUserAction(navigation)))
+        );
       }
       navigation.navigate(user ? "Main" : "LoginController");
     });

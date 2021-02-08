@@ -26,13 +26,12 @@ const Login = ({ setScreen }) => {
       auth()
         .signInWithEmailAndPassword(email, password)
         .catch((error) => {
-          console.log(error);
-          console.log(error.code);
           Alert.alert("Lo sentimos", loginErrorHandle(error.code), [
             {
               text: "Aceptar",
             },
           ]);
+          setScreen("login");
         });
     }
   };
