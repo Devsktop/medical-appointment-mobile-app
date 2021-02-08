@@ -1,6 +1,5 @@
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
-import { resolveConfig } from "prettier";
 
 export const SET_USER = "SET_USER";
 

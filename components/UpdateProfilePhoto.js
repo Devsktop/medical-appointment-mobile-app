@@ -1,10 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   View,
   TouchableWithoutFeedback,
   StyleSheet,
-  Image,
   Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
