@@ -9,6 +9,9 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import globalStyles from "../../styles";
 
+// Components
+import RadioButton from "../RadioButton";
+
 const PersonalDataForm = ({ userData, handleFormChange }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -45,8 +48,7 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
           placeholder="Ingrese sus apellidos"
           placeholderTextColor="#b8b8b8"
           onChangeText={(lastNames) =>
-            handleFormChange(lastNames, "lastNames", "user")
-          }
+            handleFormChange(lastNames, "lastNames", "user")}
           value={userData.lastNames}
         />
       </View>
@@ -94,6 +96,23 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
           </View>
         )}
       </View>
+      <View style={globalStyles.inputBox}>
+        <Text style={styles.genderTitle}>Genero Sexual</Text>
+        <View style={styles.radioButtonContainer}>
+          <View style={styles.radioButtonRow}>
+            <RadioButton
+              label="Masculino"
+              checked={userData.gender === "male"}
+              onPress={() => handleFormChange("male", "gender", "user")}
+            />
+            <RadioButton
+              label="Femenino"
+              checked={userData.gender === "female"}
+              onPress={() => handleFormChange("female", "gender", "user")}
+            />
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -104,6 +123,18 @@ const styles = StyleSheet.create({
   },
   dateBox: {
     backgroundColor: "rgba(255,255,255,.6)",
+  },
+  genderTitle: {
+    textTransform: "uppercase",
+    color: "white",
+  },
+  radioButtonRow: {
+    flexDirection: "row",
+    marginVertical: 10,
+    justifyContent: "space-between",
+  },
+  radioButtonContainer: {
+    paddingHorizontal: 10,
   },
 });
 

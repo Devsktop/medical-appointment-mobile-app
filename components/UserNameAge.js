@@ -19,15 +19,21 @@ const userAgeSelector = (state) => {
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
 
+const userGenderSelector = (state) => {
+  const { gender } = state.user.userData;
+  return gender === "male" ? "Masculino" : "Femenino";
+};
+
 const ProfileHeader = ({ textBoxStyle }) => {
   const userName = useSelector(userNameSelector);
   const userAge = useSelector(userAgeSelector);
+  const gender = useSelector(userGenderSelector);
 
   return (
     <View style={textBoxStyle}>
       <Text style={styles.headerInfoUserText}>{userName}</Text>
       <Text style={styles.headerInfoUserText}>{`${userAge} Años`}</Text>
-      <Text style={styles.headerInfoUserText}>Hombre</Text>
+      <Text style={styles.headerInfoUserText}>{gender}</Text>
     </View>
   );
 };

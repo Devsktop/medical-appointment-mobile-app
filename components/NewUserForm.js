@@ -34,6 +34,7 @@ const NewUserForm = ({ navigation }) => {
     lastNames: "",
     dni: "",
     bornDate: "",
+    gender: "",
     weight: "",
     height: "",
     bloodType: "",
@@ -92,6 +93,7 @@ const NewUserForm = ({ navigation }) => {
       lastNames,
       dni,
       bornDate,
+      gender,
       weight,
       height,
       bloodType,
@@ -103,6 +105,7 @@ const NewUserForm = ({ navigation }) => {
       lastNames.trim() === "" ||
       dni.trim() === "" ||
       bornDate === "" ||
+      gender === "" ||
       weight.trim() === "" ||
       height.trim() === "" ||
       bloodType.trim() === ""
