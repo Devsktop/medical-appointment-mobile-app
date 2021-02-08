@@ -27,6 +27,7 @@ const ProfileHeader = ({ textBoxStyle }) => {
     <View style={textBoxStyle}>
       <Text style={styles.headerInfoUserText}>{userName}</Text>
       <Text style={styles.headerInfoUserText}>{`${userAge} Años`}</Text>
+      <Text style={styles.headerInfoUserText}>Hombre</Text>
     </View>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import auth from "@react-native-firebase/auth";
 
 // Components
 import ProfilePhoto from "./ProfilePhoto";
@@ -12,20 +13,28 @@ const ProfileHeader = ({ navigation }) => (
     <BackButton navigation={navigation} />
     <View style={styles.headerInfo}>
       <View style={styles.headerInfoUser}>
-        <ProfilePhoto width={70} height={70} />
+        <ProfilePhoto width={80} height={80} />
         <UserNameAge
           textBoxStyle={{
-            justifyContent: "center",
+            justifyContent: "flex-start",
             marginLeft: 10,
           }}
         />
       </View>
-      <TouchableHighlight
-        style={styles.updateProfileButton}
-        onPress={() => navigation.navigate("UpdateProfile")}
-      >
-        <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
-      </TouchableHighlight>
+      <View style={styles.buttonContainer}>
+        <TouchableHighlight
+          style={styles.updateProfileButton}
+          onPress={() => navigation.navigate("UpdateProfile")}
+        >
+          <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.logoutButton}
+          onPress={() => auth().signOut()}
+        >
+          <Text style={styles.logoutButtonText}>Cerrar Sesión</Text>
+        </TouchableHighlight>
+      </View>
     </View>
   </LinearGradient>
 );
@@ -40,13 +49,13 @@ const styles = StyleSheet.create({
   headerInfo: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   headerInfoUser: {
     flexDirection: "row",
   },
   headerInfoUserTextBox: {
-    justifyContent: "center",
+    justifyContent: "flex-start",
     marginLeft: 10,
   },
   headerInfoUserText: {
@@ -54,14 +63,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  buttonContainer: {
+    justifyContent: "flex-start",
+  },
   updateProfileButton: {
-    borderRadius: 8,
+    borderRadius: 4,
     padding: 8,
-    backgroundColor: "#ACFAC7",
+    marginVertical: 5,
+    backgroundColor: "#3864a6",
   },
   updateProfileButtonText: {
-    color: "#356AB4",
-    fontSize: 15,
+    color: "white",
+    textTransform: "uppercase",
+    fontSize: 11,
+    textAlign: "center",
+  },
+  logoutButton: {
+    borderRadius: 4,
+    padding: 8,
+    backgroundColor: "#a63838",
+  },
+  logoutButtonText: {
+    color: "white",
+    textTransform: "uppercase",
+    fontSize: 11,
+    textAlign: "center",
   },
 });
 
