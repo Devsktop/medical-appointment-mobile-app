@@ -17,7 +17,7 @@ const ProfilePhoto = ({ width, height }) => {
           />
         </View>
       ) : (
-        <Icon name="user-circle-o" size={100} color="white" />
+        <Icon name="user-circle-o" size={width} color="white" />
       )}
     </View>
   );

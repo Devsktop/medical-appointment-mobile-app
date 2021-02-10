@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
+import auth from "@react-native-firebase/auth";
 
 const userNameSelector = (state) => {
   const { names, lastNames } = state.user.userData;
@@ -12,7 +13,6 @@ const userNameSelector = (state) => {
 
 const userAgeSelector = (state) => {
   const { bornDate } = state.user.userData;
-
   const yearDiff = Date.now() - bornDate.toDate().getTime();
   const ageDate = new Date(yearDiff);
 
@@ -25,6 +25,9 @@ const userGenderSelector = (state) => {
 };
 
 const ProfileHeader = ({ textBoxStyle }) => {
+  if (!auth().currentUser) {
+    return null;
+  }
   const userName = useSelector(userNameSelector);
   const userAge = useSelector(userAgeSelector);
   const gender = useSelector(userGenderSelector);

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import auth from "@react-native-firebase/auth";
-import { setUserAction } from "../redux/actions/UserAction";
+import { setUserAction, logout } from "../redux/actions/UserAction";
 
 const Loading = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -12,6 +12,8 @@ const Loading = ({ navigation }) => {
         await new Promise((resolve) =>
           resolve(dispatch(setUserAction(navigation)))
         );
+      } else {
+        dispatch(logout());
       }
       navigation.navigate(user ? "Main" : "LoginController");
     });

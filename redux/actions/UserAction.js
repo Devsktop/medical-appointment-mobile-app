@@ -31,3 +31,8 @@ export const updateProfilePhotoUrl = (url) => ({
   type: UPDATE_PROFILEPHOTO_URL,
   payload: { url },
 });
+export const LOGOUT = "LOGOUT";
+
+export const logout = () => ({
+  type: LOGOUT,
+});
