@@ -10,15 +10,30 @@ import {
   FlatList,
   ScrollView,
   ImageBackground,
-  SafeAreaView,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+import globalStyles from "../styles";
 
 const banner = require("../assets/mainImg/female-GP-online.jpg");
 const background = require("../assets/mainImg/fondo.jpg");
+
+const Banner = ({ item }) => (
+  <View>
+    <ImageBackground source={background} style={styles.background}>
+      <View style={styles.Appointment}>
+        <Text style={styles.appointmentText}>
+          {`Especialidad: ${item.specialty}`}
+        </Text>
+        <Text style={styles.appointmentText}>
+          Médico:
+          {item.doctor}
+        </Text>
+      </View>
+    </ImageBackground>
+  </View>
+);
 
 const Main = ({ navigation }) => {
   const [user, setUser] = useState(null);
@@ -28,21 +43,6 @@ const Main = ({ navigation }) => {
     { id: 2, specialty: "Gastroenterología", doctor: "Alguien Más" },
     { id: 3, specialty: "Gastroenterología", doctor: "Alguien Más" },
   ]);
-  const Banner = ({ item }) => (
-    <View>
-      <ImageBackground source={background} style={styles.background}>
-        <View style={styles.Appointment}>
-          <Text style={styles.appointmentText}>
-            {`Especialidad: ${item.specialty}`}
-          </Text>
-          <Text style={styles.appointmentText}>
-            Médico:
-            {item.doctor}
-          </Text>
-        </View>
-      </ImageBackground>
-    </View>
-  );
 
   const validateUser = () => {
     const { currentUser } = auth();
@@ -73,10 +73,6 @@ const Main = ({ navigation }) => {
     return focusListener;
   }, []);
 
-  const logout = () => {
-    auth().signOut();
-  };
-
   if (loading)
     return (
       <View style={styles.container}>
@@ -85,7 +81,7 @@ const Main = ({ navigation }) => {
     );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[globalStyles.container, styles.container]}>
       <ScrollView>
         <View style={banner}>
           <Image style={styles.bannerImage} source={banner} />
@@ -100,50 +96,13 @@ const Main = ({ navigation }) => {
             keyExtractor={(appointment) => appointment.id.toString()}
           />
         </View>
-
-        <View>
-          <TouchableHighlight onPress={logout} style={styles.logout}>
-            <Text style={styles.logoutText}>Cerrar Sesión</Text>
-          </TouchableHighlight>
-        </View>
       </ScrollView>
-
-      <View style={styles.footer}>
-        <View style={styles.footerIcons}>
-          <TouchableHighlight>
-            <Icon
-              name="home"
-              size={30}
-              color="#4F8EF7"
-              style={{ marginLeft: 30 }}
-            />
-          </TouchableHighlight>
-          <Icon name="medkit-outline" size={30} color="gray" />
-          <Icon name="calendar" size={30} color="gray" />
-          <Icon
-            name="ios-person"
-            size={30}
-            color="gray"
-            style={{ marginRight: 20 }}
-          />
-        </View>
-
-        <View style={styles.footerText}>
-          <Text style={{ marginLeft: 30 }}>Inicio </Text>
-          <Text style={{ marginRight: 10, marginLeft: 10 }}>
-            Especialidades
-{" "}
-          </Text>
-          <Text style={{ marginRight: 20 }}>Citas </Text>
-          <Text style={{ marginRight: 5 }}>Mi Perfil </Text>
-        </View>
-      </View>
-    </SafeAreaView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    padding: 0,
   },
   bannerImage: {
     position: "relative",

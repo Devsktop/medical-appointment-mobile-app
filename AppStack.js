@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+// eslint-disable-next-line import/named
+import { navigationRef } from "./RootNavigation";
 
 // import the different screens
 import Loading from "./components/Loading";
@@ -10,6 +13,9 @@ import NewUserForm from "./components/NewUserForm";
 import Success from "./components/newUserForms/Success";
 import Profile from "./components/Profile";
 import UpdateProfile from "./components/UpdateProfile";
+
+// Navbar
+import NavBar from "./components/NavBar";
 
 const Stack = createStackNavigator();
 
@@ -57,9 +63,11 @@ const AppStack = () => (
 );
 
 export default function App() {
+  const showNavBar = useSelector((state) => state.user.userData);
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <AppStack />
+      {showNavBar && <NavBar />}
     </NavigationContainer>
   );
 }
