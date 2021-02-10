@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable no-return-assign */
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -64,10 +65,17 @@ const AppStack = () => (
 
 export default function App() {
   const showNavBar = useSelector((state) => state.user.userData);
+  const [route, setRoute] = useState("");
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer
+      ref={navigationRef}
+      onStateChange={() => {
+        const currentRouteName = navigationRef.current.getCurrentRoute().name;
+        setRoute(currentRouteName);
+      }}
+    >
       <AppStack />
-      {showNavBar && <NavBar />}
+      {showNavBar && <NavBar route={route} />}
     </NavigationContainer>
   );
 }

@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import * as RootNavigation from "../RootNavigation";
 
-const NavBar = () => {
+const NavBar = ({ route }) => {
   const [current, setCurrent] = useState("Main");
+
+  useEffect(() => {
+    const navbarRoutes = ["Main", "Profile"];
+    if (navbarRoutes.includes(route)) setCurrent(route);
+  }, [route]);
 
   const navController = (button) => {
     setCurrent(button);
