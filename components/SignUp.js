@@ -38,6 +38,7 @@ const SignUp = ({ setScreen }) => {
               text: "Aceptar",
             },
           ]);
+          setScreen("signup");
         });
     }
   };
