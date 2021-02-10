@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import LinearGradient from "react-native-linear-gradient";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
@@ -21,13 +22,19 @@ import MedicalHistoryTwo from "./newUserForms/MedicalHistoryTwo";
 import MedicalHistoryThree from "./newUserForms/MedicalHistoryThree";
 import SpecialCondition from "./newUserForms/SpecialCondition";
 
+// Actions
+import { setUserAction } from "../redux/actions/UserAction";
+
 const NewUserForm = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [currentScreen, setCurrentScreen] = useState(0);
   const [userData, setUserData] = useState({
     names: "",
     lastNames: "",
     dni: "",
     bornDate: "",
+    gender: "",
     weight: "",
     height: "",
     bloodType: "",
@@ -86,6 +93,7 @@ const NewUserForm = ({ navigation }) => {
       lastNames,
       dni,
       bornDate,
+      gender,
       weight,
       height,
       bloodType,
@@ -97,6 +105,7 @@ const NewUserForm = ({ navigation }) => {
       lastNames.trim() === "" ||
       dni.trim() === "" ||
       bornDate === "" ||
+      gender === "" ||
       weight.trim() === "" ||
       height.trim() === "" ||
       bloodType.trim() === ""
@@ -116,7 +125,10 @@ const NewUserForm = ({ navigation }) => {
           isNewUser: false,
           userData,
         })
-        .then(() => {
+        .then(async () => {
+          await new Promise((resolve) =>
+            resolve(dispatch(setUserAction(navigation)))
+          );
           navigation.navigate("Success");
         });
     } else {

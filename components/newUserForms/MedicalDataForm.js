@@ -10,7 +10,7 @@ const PersonalDataForm = ({ userData, handleFormChange }) => (
       <TextInput
         style={globalStyles.inputField}
         autoCapitalize="none"
-        placeholder="Peso"
+        placeholder="Peso Kg"
         placeholderTextColor="#b8b8b8"
         keyboardType="numeric"
         onChangeText={(weight) => handleFormChange(weight, "weight", "user")}
@@ -21,7 +21,7 @@ const PersonalDataForm = ({ userData, handleFormChange }) => (
       <TextInput
         style={globalStyles.inputField}
         autoCapitalize="none"
-        placeholder="Altura"
+        placeholder="Altura Cm"
         placeholderTextColor="#b8b8b8"
         keyboardType="numeric"
         onChangeText={(height) => handleFormChange(height, "height", "user")}
