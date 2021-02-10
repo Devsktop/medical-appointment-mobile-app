@@ -1,11 +1,15 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import ProfileHeader from "./ProfileHeader";
 import globalStyles from "../styles";
+
+// Components
+import ProfileHeader from "./ProfileHeader";
+import ProfileBody from "./ProfileBody";
 
 const Profile = ({ navigation }) => (
   <View style={[globalStyles.container, styles.container]}>
     <ProfileHeader navigation={navigation} />
+    <ProfileBody />
   </View>
 );
 
