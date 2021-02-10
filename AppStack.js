@@ -65,17 +65,10 @@ const AppStack = () => (
 
 export default function App() {
   const showNavBar = useSelector((state) => state.user.userData);
-  const [route, setRoute] = useState("");
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      onStateChange={() => {
-        const currentRouteName = navigationRef.current.getCurrentRoute().name;
-        setRoute(currentRouteName);
-      }}
-    >
+    <NavigationContainer ref={navigationRef}>
       <AppStack />
-      {showNavBar && <NavBar route={route} />}
+      {showNavBar && <NavBar />}
     </NavigationContainer>
   );
 }

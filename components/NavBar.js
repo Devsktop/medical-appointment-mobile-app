@@ -4,13 +4,22 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import * as RootNavigation from "../RootNavigation";
 
-const NavBar = ({ route }) => {
+const NavBar = () => {
   const [current, setCurrent] = useState("Main");
 
   useEffect(() => {
-    const navbarRoutes = ["Main", "Profile"];
-    if (navbarRoutes.includes(route)) setCurrent(route);
-  }, [route]);
+    const routeNames = ["Main", "Profile"];
+    const router = RootNavigation.navigationRef.current.addListener(
+      "state",
+      () => {
+        const currentRoute = RootNavigation.navigationRef.current.getCurrentRoute()
+          .name;
+        if (routeNames.includes(currentRoute)) setCurrent(currentRoute);
+      }
+    );
+
+    return router;
+  }, [RootNavigation.navigationRef]);
 
   const navController = (button) => {
     setCurrent(button);
