@@ -38,6 +38,14 @@ const Banner = ({ item }) => (
 const Main = ({ navigation }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e) => {
+      if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
+      e.preventDefault();
+    });
+  }, [navigation]);
+
   const [appointments, setAppointments] = useState([
     { id: 1, specialty: "Gastroenterología", doctor: "José Jiménez" },
     { id: 2, specialty: "Gastroenterología", doctor: "Alguien Más" },
