@@ -32,7 +32,6 @@ const SignUp = ({ setScreen }) => {
           });
         })
         .catch((error) => {
-          console.log(error.code);
           Alert.alert("Lo sentimos", loginErrorHandle(error.code), [
             {
               text: "Aceptar",
