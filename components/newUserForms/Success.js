@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
 import globalStyles from "../../styles";
 
+// Actions
+import { showMenu } from "../../redux/actions/utilsActions";
+
 const Success = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     navigation.addListener("beforeRemove", (e) => {
       if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
@@ -29,7 +35,10 @@ const Success = ({ navigation }) => {
       <TouchableHighlight
         underlayColor="#2985b3"
         style={[globalStyles.button, globalStyles.lightButton]}
-        onPress={() => navigation.navigate("Main")}
+        onPress={() => {
+          navigation.navigate("Main");
+          dispatch(showMenu(true));
+        }}
       >
         <Text style={[globalStyles.buttonText, globalStyles.lightButtonText]}>
           Aceptar

@@ -19,7 +19,9 @@ export function setUserAction(navigation) {
         .doc(currentUser.uid)
         .get();
       if (doc.exists) {
-        dispatch(setUser(doc.data()));
+        const user = { ...doc.data() };
+        user.userData.bornDate = user.userData.bornDate.toDate();
+        dispatch(setUser(user));
       }
     }
   };

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LinearGradient from "react-native-linear-gradient";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
@@ -13,6 +13,7 @@ import { setUserAction } from "../redux/actions/UserAction";
 
 const NewUserForm = ({ navigation }) => {
   const [currentScreen, setCurrentScreen] = useState(0);
+  const initUserData = useSelector((state) => state.user.userData);
   const formRef = useRef();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,17 +23,12 @@ const NewUserForm = ({ navigation }) => {
     });
   }, [navigation]);
 
-  const logout = () => {
-    auth().signOut();
-  };
-
   const onSubmit = (userData) => {
     const { currentUser } = auth();
     firestore()
       .collection("users")
       .doc(currentUser.uid)
       .update({
-        isNewUser: false,
         userData,
       })
       .then(async () => {
@@ -50,9 +46,10 @@ const NewUserForm = ({ navigation }) => {
     >
       <UserFormController
         onSubmit={onSubmit}
-        title="Registro de paciente"
+        title="Actualizar datos"
         ref={formRef}
         parentScreen={setCurrentScreen}
+        initUserData={initUserData}
       />
       <View style={styles.buttonContainer}>
         {currentScreen === 5 ? (
@@ -81,17 +78,7 @@ const NewUserForm = ({ navigation }) => {
           </TouchableHighlight>
         )}
 
-        {currentScreen === 0 ? (
-          <TouchableHighlight
-            underlayColor="#2985b3"
-            style={[globalStyles.button, globalStyles.darkButton]}
-            onPress={logout}
-          >
-            <Text style={globalStyles.buttonText}>
-              Iniciar Sesión con otra cuenta
-            </Text>
-          </TouchableHighlight>
-        ) : (
+        {currentScreen !== 0 && (
           <TouchableHighlight
             underlayColor="#2985b3"
             style={[globalStyles.button, globalStyles.darkButton]}

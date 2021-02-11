@@ -1,5 +1,5 @@
 /* eslint-disable no-return-assign */
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,6 +11,7 @@ import Loading from "./components/Loading";
 import LoginController from "./components/LoginController";
 import Main from "./components/Main";
 import NewUserForm from "./components/NewUserForm";
+import UpdateUserForm from "./components/UpdateUserForm";
 import Success from "./components/newUserForms/Success";
 import Profile from "./components/Profile";
 import UpdateProfile from "./components/UpdateProfile";
@@ -60,11 +61,23 @@ const AppStack = () => (
       component={NewUserForm}
       options={{ title: "Crear usuario", headerShown: false }}
     />
+    <Stack.Screen
+      name="UpdateUserForm"
+      component={UpdateUserForm}
+      options={{ title: "Actualizar usuario", headerShown: false }}
+    />
   </Stack.Navigator>
 );
 
+const showNavbarSelector = (state) => {
+  const { userData } = state.user;
+  const { showMenu } = state.utils;
+
+  return userData && showMenu;
+};
+
 export default function App() {
-  const showNavBar = useSelector((state) => state.user.userData);
+  const showNavBar = useSelector(showNavbarSelector);
   return (
     <NavigationContainer ref={navigationRef}>
       <AppStack />

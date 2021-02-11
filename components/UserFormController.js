@@ -13,47 +13,49 @@ import MedicalHistoryThree from "./newUserForms/MedicalHistoryThree";
 import SpecialCondition from "./newUserForms/SpecialCondition";
 
 const UserFormController = forwardRef(
-  ({ title, onSubmit, parentScreen }, ref) => {
+  ({ title, onSubmit, parentScreen, initUserData }, ref) => {
     const [currentScreen, setCurrentScreen] = useState(0);
-    const [userData, setUserData] = useState({
-      names: "",
-      lastNames: "",
-      dni: "",
-      bornDate: "",
-      gender: "",
-      weight: "",
-      height: "",
-      bloodType: "",
-      medicalHistory: {
-        vih: null,
-        obesity: null,
-        anemia: null,
-        bleedingDisorders: null,
-        peripheralVascularDisease: null,
-        rheumatoidArthritis: null,
-        heartFailure: null,
-        renalFailure: null,
-        coronaryDisease: null,
-        bronchialAsthma: null,
-        obstructiveLungDisease: null,
-        PulmonaryCirculationDisorder: null,
-        depression: null,
-        diabetes: null,
-        arterialHypertension: null,
-        hypothyroidism: null,
-        liverDisease: null,
-        lymphoma: null,
-        neurologicalDisorders: null,
-        cancer: null,
-        paralysis: null,
-        smoker: null,
-        alcoholic: null,
-        drugAddict: null,
-        gestationState: null,
-        nursing: null,
-        disability: null,
-      },
-    });
+    const [userData, setUserData] = useState(
+      initUserData || {
+        names: "",
+        lastNames: "",
+        dni: "",
+        bornDate: "",
+        gender: "",
+        weight: "",
+        height: "",
+        bloodType: "",
+        medicalHistory: {
+          vih: null,
+          obesity: null,
+          anemia: null,
+          bleedingDisorders: null,
+          peripheralVascularDisease: null,
+          rheumatoidArthritis: null,
+          heartFailure: null,
+          renalFailure: null,
+          coronaryDisease: null,
+          bronchialAsthma: null,
+          obstructiveLungDisease: null,
+          PulmonaryCirculationDisorder: null,
+          depression: null,
+          diabetes: null,
+          arterialHypertension: null,
+          hypothyroidism: null,
+          liverDisease: null,
+          lymphoma: null,
+          neurologicalDisorders: null,
+          cancer: null,
+          paralysis: null,
+          smoker: null,
+          alcoholic: null,
+          drugAddict: null,
+          gestationState: null,
+          nursing: null,
+          disability: null,
+        },
+      }
+    );
 
     useImperativeHandle(ref, () => ({
       handleScreenChange,
@@ -207,5 +209,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
+
+UserFormController.displayName = "UserFormController";
 
 export default UserFormController;

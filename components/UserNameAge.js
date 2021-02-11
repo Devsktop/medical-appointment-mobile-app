@@ -13,7 +13,7 @@ const userNameSelector = (state) => {
 
 const userAgeSelector = (state) => {
   const { bornDate } = state.user.userData;
-  const yearDiff = Date.now() - bornDate.toDate().getTime();
+  const yearDiff = Date.now() - bornDate.getTime();
   const ageDate = new Date(yearDiff);
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);

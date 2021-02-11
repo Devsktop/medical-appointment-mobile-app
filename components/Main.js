@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -13,8 +14,10 @@ import {
 } from "react-native";
 
 import auth from "@react-native-firebase/auth";
-import firestore from "@react-native-firebase/firestore";
 import globalStyles from "../styles";
+
+// Actions
+import { showMenu } from "../redux/actions/utilsActions";
 
 const banner = require("../assets/mainImg/female-GP-online.jpg");
 const background = require("../assets/mainImg/fondo.jpg");
@@ -36,6 +39,8 @@ const Banner = ({ item }) => (
 );
 
 const Main = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const isNewUser = useSelector((state) => state.user.isNewUser);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -56,21 +61,12 @@ const Main = ({ navigation }) => {
     const { currentUser } = auth();
     if (!currentUser) {
       navigation.navigate("SignUp");
+    } else if (isNewUser) {
+      navigation.navigate("NewUserForm");
+      dispatch(showMenu(false));
     } else {
-      firestore()
-        .collection("users")
-        .doc(currentUser.uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            const { isNewUser } = doc.data();
-            if (isNewUser) navigation.navigate("NewUserForm");
-            else {
-              setUser(currentUser);
-              setLoading(false);
-            }
-          }
-        });
+      setUser(currentUser);
+      setLoading(false);
     }
   };
 
