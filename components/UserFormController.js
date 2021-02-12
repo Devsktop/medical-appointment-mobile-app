@@ -74,6 +74,7 @@ const UserFormController = forwardRef(
     };
 
     const handleSubmitForm = () => {
+      console.log(userData);
       let isValid = true;
       const {
         names,

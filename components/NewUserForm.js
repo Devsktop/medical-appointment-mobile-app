@@ -12,6 +12,7 @@ import UserFormController from "./UserFormController";
 import { setUserAction } from "../redux/actions/UserAction";
 
 const NewUserForm = ({ navigation }) => {
+  const [submitController, setSubmitController] = useState(-1);
   const [currentScreen, setCurrentScreen] = useState(0);
   const formRef = useRef();
   const dispatch = useDispatch();
@@ -22,11 +23,16 @@ const NewUserForm = ({ navigation }) => {
     });
   }, [navigation]);
 
+  useEffect(() => {
+    if (submitController >= 0) formRef.current.handleSubmitForm();
+  }, [submitController]);
+
   const logout = () => {
     auth().signOut();
   };
 
   const onSubmit = (userData) => {
+    console.log(userData);
     const { currentUser } = auth();
     firestore()
       .collection("users")
@@ -53,13 +59,14 @@ const NewUserForm = ({ navigation }) => {
         title="Registro de paciente"
         ref={formRef}
         parentScreen={setCurrentScreen}
+        submitController={submitController}
       />
       <View style={styles.buttonContainer}>
         {currentScreen === 5 ? (
           <TouchableHighlight
             underlayColor="#2985b3"
             style={[globalStyles.button, globalStyles.lightButton]}
-            onPress={formRef.current.handleSubmitForm}
+            onPress={() => setSubmitController(submitController + 1)}
           >
             <Text
               style={[globalStyles.buttonText, globalStyles.lightButtonText]}

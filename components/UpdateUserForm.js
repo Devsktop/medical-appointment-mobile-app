@@ -12,16 +12,22 @@ import UserFormController from "./UserFormController";
 import { setUserAction } from "../redux/actions/UserAction";
 
 const NewUserForm = ({ navigation }) => {
+  const [submitController, setSubmitController] = useState(-1);
   const [currentScreen, setCurrentScreen] = useState(0);
   const initUserData = useSelector((state) => state.user.userData);
   const formRef = useRef();
   const dispatch = useDispatch();
+
   useEffect(() => {
     navigation.addListener("beforeRemove", (e) => {
       if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
       e.preventDefault();
     });
   }, [navigation]);
+
+  useEffect(() => {
+    if (submitController >= 0) formRef.current.handleSubmitForm();
+  }, [submitController]);
 
   const onSubmit = (userData) => {
     const { currentUser } = auth();
@@ -56,7 +62,7 @@ const NewUserForm = ({ navigation }) => {
           <TouchableHighlight
             underlayColor="#2985b3"
             style={[globalStyles.button, globalStyles.lightButton]}
-            onPress={formRef.current.handleSubmitForm}
+            onPress={() => setSubmitController(submitController + 1)}
           >
             <Text
               style={[globalStyles.buttonText, globalStyles.lightButtonText]}
