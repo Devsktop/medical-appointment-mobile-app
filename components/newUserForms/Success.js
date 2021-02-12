@@ -36,8 +36,13 @@ const Success = ({ navigation }) => {
         underlayColor="#2985b3"
         style={[globalStyles.button, globalStyles.lightButton]}
         onPress={async () => {
-          await new Promise((resolve) => resolve(dispatch(showMenu(true))));
-          navigation.navigate("Main");
+          await new Promise((resolve) => {
+            navigation.navigate("Main");
+            setTimeout(() => {
+              resolve();
+            }, 210);
+          });
+          dispatch(showMenu(true));
         }}
       >
         <Text style={[globalStyles.buttonText, globalStyles.lightButtonText]}>
