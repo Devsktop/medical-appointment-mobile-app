@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-
+import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
 
@@ -40,7 +40,6 @@ const Banner = ({ item }) => (
 
 const Main = ({ navigation }) => {
   const dispatch = useDispatch();
-  const isNewUser = useSelector((state) => state.user.isNewUser);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -61,12 +60,23 @@ const Main = ({ navigation }) => {
     const { currentUser } = auth();
     if (!currentUser) {
       navigation.navigate("SignUp");
-    } else if (isNewUser) {
-      navigation.navigate("NewUserForm");
-      dispatch(showMenu(false));
     } else {
-      setUser(currentUser);
-      setLoading(false);
+      firestore()
+        .collection("users")
+        .doc(currentUser.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const { isNewUser } = doc.data();
+            if (isNewUser) {
+              dispatch(showMenu(false));
+              navigation.navigate("NewUserForm");
+            } else {
+              setUser(currentUser);
+              setLoading(false);
+            }
+          }
+        });
     }
   };
 
