@@ -2,7 +2,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 // eslint-disable-next-line import/named
 import { navigationRef } from "./RootNavigation";
 
@@ -24,6 +27,7 @@ const Stack = createStackNavigator();
 const AppStack = () => (
   <Stack.Navigator
     screenOptions={{
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       headerLeft: null,
       headerTitleAlign: "center",
       headerStyle: {

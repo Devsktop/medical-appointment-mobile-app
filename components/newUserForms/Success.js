@@ -35,9 +35,9 @@ const Success = ({ navigation }) => {
       <TouchableHighlight
         underlayColor="#2985b3"
         style={[globalStyles.button, globalStyles.lightButton]}
-        onPress={() => {
+        onPress={async () => {
+          await new Promise((resolve) => resolve(dispatch(showMenu(true))));
           navigation.navigate("Main");
-          dispatch(showMenu(true));
         }}
       >
         <Text style={[globalStyles.buttonText, globalStyles.lightButtonText]}>

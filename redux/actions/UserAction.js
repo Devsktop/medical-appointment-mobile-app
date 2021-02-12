@@ -8,8 +8,9 @@ const setUser = (user) => ({
   payload: { user },
 });
 
-export function setUserAction(navigation) {
+export function setUserAction(navigation, from) {
   return async (dispatch) => {
+    console.log("userActio ", from);
     const { currentUser } = auth();
     if (!currentUser) {
       navigation.navigate("SignUp");
@@ -18,9 +19,17 @@ export function setUserAction(navigation) {
         .collection("users")
         .doc(currentUser.uid)
         .get();
+
+      // await new Promise((resolve) => {
+      //   setTimeout(() => {
+      //     resolve(console.log("termine"));
+      //   }, 3000);
+      // });
       if (doc.exists) {
         const user = { ...doc.data() };
-        user.userData.bornDate = user.userData.bornDate.toDate();
+        if (!user.isNewUser) {
+          user.userData.bornDate = user.userData.bornDate.toDate();
+        }
         dispatch(setUser(user));
       }
     }

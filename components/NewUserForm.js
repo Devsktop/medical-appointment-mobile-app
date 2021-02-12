@@ -37,7 +37,7 @@ const NewUserForm = ({ navigation }) => {
       })
       .then(async () => {
         await new Promise((resolve) =>
-          resolve(dispatch(setUserAction(navigation)))
+          resolve(dispatch(setUserAction(navigation, "UserForm")))
         );
         navigation.navigate("Success");
       });
