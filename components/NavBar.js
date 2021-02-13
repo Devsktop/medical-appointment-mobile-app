@@ -8,7 +8,7 @@ const NavBar = () => {
   const [current, setCurrent] = useState("Main");
 
   useEffect(() => {
-    const routeNames = ["Main", "Profile"];
+    const routeNames = ["Main", "Profile", "Specialties"];
     const router = RootNavigation.navigationRef.current.addListener(
       "state",
       () => {
@@ -43,6 +43,7 @@ const NavBar = () => {
           size={30}
           color={current === "Specialties" ? "#3a6ab1" : "gray"}
           name="medkit-outline"
+          onPress={() => navController("Specialties")}
         />
         <Text style={styles.navbarButtonText}>Especialidades</Text>
       </View>
