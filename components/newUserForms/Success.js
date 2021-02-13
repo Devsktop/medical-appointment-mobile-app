@@ -40,7 +40,7 @@ const Success = ({ navigation }) => {
             navigation.navigate("Main");
             setTimeout(() => {
               resolve();
-            }, 210);
+            }, 230);
           });
           dispatch(showMenu(true));
         }}

@@ -7,6 +7,9 @@ import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
 
+// components
+import ProfileMedicalHistory from "./ProfileMedicalHistory";
+
 const userDataSelector = (state) => {
   const {
     weight,
@@ -82,6 +85,7 @@ const Profile = () => {
           </View>
         </View>
       </View>
+      <ProfileMedicalHistory />
     </View>
   );
 };

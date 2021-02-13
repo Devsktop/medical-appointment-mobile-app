@@ -32,7 +32,6 @@ const NewUserForm = ({ navigation }) => {
   };
 
   const onSubmit = (userData) => {
-    console.log(userData);
     const { currentUser } = auth();
     firestore()
       .collection("users")
