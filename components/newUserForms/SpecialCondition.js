@@ -17,13 +17,15 @@ const SpecialCondition = ({ userData, handleFormChange }) => (
               label="Sí"
               checked={userData.medicalHistory.gestationState}
               onPress={() =>
-                handleFormChange(true, "gestationState", "history")}
+                handleFormChange(true, "gestationState", "history")
+              }
             />
             <RadioButton
               label="No"
               checked={userData.medicalHistory.gestationState === false}
               onPress={() =>
-                handleFormChange(false, "gestationState", "history")}
+                handleFormChange(false, "gestationState", "history")
+              }
             />
           </View>
         </View>
@@ -39,7 +41,9 @@ const SpecialCondition = ({ userData, handleFormChange }) => (
             <RadioButton
               label="No"
               checked={userData.medicalHistory.nursing === false}
-              onPress={() => handleFormChange(false, "nursing", "history")}
+              onPress={() => {
+                handleFormChange(false, "nursing", "history");
+              }}
             />
           </View>
         </View>

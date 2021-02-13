@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -11,10 +12,12 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-
-import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+import auth from "@react-native-firebase/auth";
 import globalStyles from "../styles";
+
+// Actions
+import { showMenu } from "../redux/actions/utilsActions";
 
 const banner = require("../assets/mainImg/female-GP-online.jpg");
 const background = require("../assets/mainImg/fondo.jpg");
@@ -36,8 +39,17 @@ const Banner = ({ item }) => (
 );
 
 const Main = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e) => {
+      if (e.data.action.type !== "GO_BACK") navigation.dispatch(e.data.action);
+      e.preventDefault();
+    });
+  }, [navigation]);
+
   const [appointments, setAppointments] = useState([
     { id: 1, specialty: "Gastroenterología", doctor: "José Jiménez" },
     { id: 2, specialty: "Gastroenterología", doctor: "Alguien Más" },
@@ -56,8 +68,10 @@ const Main = ({ navigation }) => {
         .then((doc) => {
           if (doc.exists) {
             const { isNewUser } = doc.data();
-            if (isNewUser) navigation.navigate("NewUserForm");
-            else {
+            if (isNewUser) {
+              dispatch(showMenu(false));
+              navigation.navigate("NewUserForm");
+            } else {
               setUser(currentUser);
               setLoading(false);
             }

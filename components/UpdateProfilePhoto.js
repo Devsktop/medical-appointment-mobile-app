@@ -13,7 +13,7 @@ import { launchImageLibrary } from "react-native-image-picker";
 import firestore from "@react-native-firebase/firestore";
 
 // Actions
-import { loadingProfilePhoto } from "../redux/actions/utilsActions";
+import { loadingProfilePhoto, showMenu } from "../redux/actions/utilsActions";
 import { updateProfilePhotoUrl } from "../redux/actions/UserAction";
 
 // Components
@@ -24,6 +24,7 @@ const UpdateProfilePhoto = () => {
 
   const uploadImageToStorage = async (path) => {
     dispatch(loadingProfilePhoto(true));
+    dispatch(showMenu(false));
     const { currentUser } = auth();
     const imageName = `${currentUser.uid}_profilePhoto`;
     const reference = storage().ref(imageName);
@@ -33,6 +34,7 @@ const UpdateProfilePhoto = () => {
       profilePhotoUrl: url,
     });
     dispatch(loadingProfilePhoto(false));
+    dispatch(showMenu(true));
     dispatch(updateProfilePhotoUrl(url));
   };
 

@@ -24,7 +24,6 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
   };
 
   const handleConfirm = (date) => {
-    console.log(new Date());
     handleFormChange(date, "bornDate", "user");
     hideDatePicker();
   };
@@ -48,7 +47,8 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
           placeholder="Ingrese sus apellidos"
           placeholderTextColor="#b8b8b8"
           onChangeText={(lastNames) =>
-            handleFormChange(lastNames, "lastNames", "user")}
+            handleFormChange(lastNames, "lastNames", "user")
+          }
           value={userData.lastNames}
         />
       </View>

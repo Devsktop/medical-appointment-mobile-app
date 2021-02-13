@@ -6,15 +6,17 @@ import { setUserAction, logout } from "../redux/actions/UserAction";
 
 const Loading = ({ navigation }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     auth().onAuthStateChanged(async (user) => {
       if (user) {
         await new Promise((resolve) =>
-          resolve(dispatch(setUserAction(navigation)))
+          resolve(dispatch(setUserAction(navigation, "loading")))
         );
       } else {
         dispatch(logout());
       }
+      console.log("loading");
       navigation.navigate(user ? "Main" : "LoginController");
     });
   }, []);
