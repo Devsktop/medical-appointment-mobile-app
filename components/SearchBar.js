@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useRef } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { TextInput, View, StyleSheet } from "react-native";
 
-const SearchBar = ({ onChange, value, placeholder }) => (
-  <View style={styles.background}>
-    <View style={styles.container}>
-      <Icon name="search" size={20} style={styles.icon} />
-      <TextInput
-        style={styles.input}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
+const SearchBar = ({ onChange, value, placeholder }) => {
+  const inputRef = useRef(null);
+
+  return (
+    <View style={styles.background}>
+      <View style={styles.container}>
+        <Icon
+          name="search"
+          size={20}
+          style={styles.icon}
+          onPress={() => inputRef.current.focus()}
+        />
+        <TextInput
+          style={styles.input}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          ref={inputRef}
+        />
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   background: {
