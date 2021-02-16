@@ -26,7 +26,7 @@ const UpdateProfilePhoto = () => {
     dispatch(loadingProfilePhoto(true));
     dispatch(showMenu(false));
     const { currentUser } = auth();
-    const imageName = `${currentUser.uid}_profilePhoto`;
+    const imageName = `profilePhoto/${currentUser.uid}_profilePhoto`;
     const reference = storage().ref(imageName);
     await reference.putFile(path);
     const url = await reference.getDownloadURL();
