@@ -7,7 +7,8 @@ export default function reducer(state = initialState, { type, payload }) {
     case SET_DOCTORS_DATA:
       return {
         ...state,
-        ...payload.user,
+        doctors: payload.doctors,
+        specialties: payload.specialties,
       };
     default:
       return state;

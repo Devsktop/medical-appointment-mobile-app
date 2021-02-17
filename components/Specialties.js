@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Text, View, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
@@ -7,12 +7,10 @@ import LinearGradient from "react-native-linear-gradient";
 import BackButton from "./BackButton";
 import SearchBar from "./SearchBar";
 
-// Actions
-import { setDoctorsData } from "../redux/actions/doctorsActions";
-
 const Specialties = ({ navigation }) => {
   const dispatch = useDispatch();
-  dispatch(setDoctorsData());
+  const specialties = useSelector((state) => state.doctors.specialties);
+  console.log(specialties);
   return (
     <View>
       <LinearGradient style={styles.container} colors={["#3867B4", "#0F94B4"]}>

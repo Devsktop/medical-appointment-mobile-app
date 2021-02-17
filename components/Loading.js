@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import auth from "@react-native-firebase/auth";
+
+// Actions
 import { setUserAction, logout } from "../redux/actions/UserAction";
+import { setDoctorsData } from "../redux/actions/doctorsActions";
 
 const Loading = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -11,8 +14,9 @@ const Loading = ({ navigation }) => {
     auth().onAuthStateChanged(async (user) => {
       if (user) {
         await new Promise((resolve) =>
-          resolve(dispatch(setUserAction(navigation, "loading")))
+          resolve(dispatch(setUserAction(navigation)))
         );
+        await new Promise((resolve) => resolve(dispatch(setDoctorsData())));
       } else {
         dispatch(logout());
       }
