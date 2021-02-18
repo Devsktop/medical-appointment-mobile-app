@@ -20,15 +20,14 @@ const Loading = ({ navigation }) => {
       } else {
         dispatch(logout());
       }
-      console.log("loading");
       navigation.navigate(user ? "Main" : "LoginController");
     });
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Loading esta vaina</Text>
-      <ActivityIndicator size="large" color="red" />
+      <ActivityIndicator size="large" color="#669df6" />
+      <Text style={styles.text}>Cargando datos</Text>
     </View>
   );
 };
@@ -36,26 +35,14 @@ const Loading = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
-    width: "100%",
-    padding: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  buttonContainer: {
-    width: "100%",
-  },
-  textInput: {
-    height: 40,
-    width: "90%",
-    borderColor: "gray",
-    borderWidth: 1,
-    marginTop: 8,
-  },
-  signupText: {
-    textAlign: "center",
-    color: "white",
-  },
-  buttonDisabled: {
-    opacity: 0.5,
+  text: {
+    marginTop: 5,
+    color: "gray",
+    fontWeight: "bold",
+    fontSize: 18,
   },
 });
 

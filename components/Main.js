@@ -74,6 +74,7 @@ const Main = ({ navigation }) => {
             } else {
               setUser(currentUser);
               setLoading(false);
+              dispatch(showMenu(true));
             }
           }
         });
@@ -89,8 +90,9 @@ const Main = ({ navigation }) => {
 
   if (loading)
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="blue" />
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#669df6" />
+        <Text style={styles.loadingText}>Verificando usuario</Text>
       </View>
     );
 
@@ -118,6 +120,17 @@ const styles = StyleSheet.create({
   container: {
     padding: 0,
   },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 5,
+    color: "gray",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
   bannerImage: {
     position: "relative",
     height: 200,
@@ -141,25 +154,6 @@ const styles = StyleSheet.create({
   body: {
     marginTop: 20,
   },
-  footer: {
-    backgroundColor: "white",
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    height: 80,
-    marginTop: 10,
-    borderColor: "white",
-    borderWidth: 10,
-  },
-  footerIcons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  footerText: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
   logout: {
     marginVertical: 20,
     paddingVertical: 10,

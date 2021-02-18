@@ -2,7 +2,7 @@ import { IS_LOADING_PROFILE_PHOTO, SHOW_MENU } from "../actions/utilsActions";
 
 const initialState = {
   isLoadingProfilePhoto: false,
-  showMenu: true,
+  showMenu: false,
 };
 
 export default function reducer(state = initialState, { type, payload }) {

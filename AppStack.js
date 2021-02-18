@@ -40,8 +40,16 @@ const AppStack = () => (
       },
     }}
   >
-    <Stack.Screen name="Loading" component={Loading} />
-    <Stack.Screen name="Main" component={Main} />
+    <Stack.Screen
+      name="Loading"
+      component={Loading}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Main"
+      component={Main}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen
       name="LoginController"
       component={LoginController}
