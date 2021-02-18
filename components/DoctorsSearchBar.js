@@ -5,16 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "./SearchBar";
 
 // Actions
-import { specialtiesFilter } from "../redux/actions/doctorsActions";
+import { doctorsFilter } from "../redux/actions/doctorsActions";
 
 const DoctorsSearchBar = () => {
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.doctors.specialtiesFilter);
+  const filter = useSelector((state) => state.doctors.doctorsFilter);
 
   return (
     <SearchBar
-      placeholder="Buscar especialidad..."
-      onChangeText={(value) => dispatch(specialtiesFilter(value))}
+      placeholder="Buscar por nombre..."
+      onChangeText={(value) => dispatch(doctorsFilter(value))}
       value={filter}
     />
   );

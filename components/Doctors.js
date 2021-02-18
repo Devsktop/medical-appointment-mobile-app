@@ -5,6 +5,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 // Components
 import BackButton from "./BackButton";
+import DoctorsSearchBar from "./DoctorsSearchBar";
 
 const Doctors = ({ navigation }) => {
   const currentSpecialty = useSelector(
@@ -19,6 +20,7 @@ const Doctors = ({ navigation }) => {
           <Text style={styles.title}>Búsqueda de doctor</Text>
         </View>
       </LinearGradient>
+      <DoctorsSearchBar />
       <Text>{currentSpecialty}</Text>
     </View>
   );
