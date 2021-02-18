@@ -2,6 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 
+// Components
+import DoctorBox from "./DoctorBox";
+
 const doctorsSelectors = (state) => {
   const { doctors, doctorsFilter, currentSpecialty } = state.doctors;
 
@@ -28,11 +31,13 @@ const doctorsSelectors = (state) => {
 
 const DoctorsList = () => {
   const doctors = useSelector(doctorsSelectors);
-  console.log(doctors);
   return (
     <ScrollView>
-      <View>
-        <Text>Hola mundo</Text>
+      <View style={styles.container}>
+        {Object.keys(doctors).map((key) => {
+          console.log(key);
+          return <DoctorBox doctor={doctors[key]} key={key} />;
+        })}
       </View>
     </ScrollView>
   );
@@ -40,9 +45,10 @@ const DoctorsList = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    paddingBottom: 0,
-    paddingTop: 40,
+    flex: 1,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "blue",
   },
   header: {
     flexDirection: "row",
