@@ -22,6 +22,13 @@ export const selectSpecialty = (specialty) => ({
   payload: { specialty },
 });
 
+export const SELECT_DOCTOR = "SELECT_DOCTOR";
+
+export const selectDoctor = (doctor) => ({
+  type: SELECT_DOCTOR,
+  payload: { doctor },
+});
+
 export const SET_DOCTORS_DATA = "SET_DOCTORS_DATA";
 
 const setDoctorsDataAction = (doctors, specialties) => ({

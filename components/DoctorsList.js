@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 
 // Components
 import DoctorBox from "./DoctorBox";

@@ -3,6 +3,7 @@ import {
   SPECIALTIES_FILTER,
   SELECT_SPECIALTY,
   DOCTORS_FILTER,
+  SELECT_DOCTOR,
 } from "../actions/doctorsActions";
 
 const initialState = {
@@ -33,6 +34,11 @@ export default function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         currentSpecialty: payload.specialty,
+      };
+    case SELECT_DOCTOR:
+      return {
+        ...state,
+        currentDoctor: payload.doctor,
       };
     default:
       return state;
