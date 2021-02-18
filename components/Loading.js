@@ -36,8 +36,26 @@ const Loading = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    padding: 0,
+  },
+  buttonContainer: {
+    width: "100%",
+  },
+  textInput: {
+    height: 40,
+    width: "90%",
+    borderColor: "gray",
+    borderWidth: 1,
+    marginTop: 8,
+  },
+  signupText: {
+    textAlign: "center",
+    color: "white",
+  },
+  buttonDisabled: {
+    opacity: 0.5,
   },
 });
 

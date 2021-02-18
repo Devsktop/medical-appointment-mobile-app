@@ -7,7 +7,6 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import globalStyles from "../styles";
 
 const specialtiesSelector = (state) => {
   const { specialtiesFilter, specialties } = state.doctors;
