@@ -17,7 +17,7 @@ const Specialties = ({ specialties, id }) => {
   const dispatch = useDispatch();
   const handleSelectSpecialty = () => {
     dispatch(selectSpecialty(id));
-    RootNavigation.navigate("DoctorsList");
+    RootNavigation.navigate("Doctors");
   };
   return (
     <TouchableWithoutFeedback onPress={handleSelectSpecialty}>

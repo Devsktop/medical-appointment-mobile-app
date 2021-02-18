@@ -19,6 +19,7 @@ import Success from "./components/newUserForms/Success";
 import Profile from "./components/Profile";
 import UpdateProfile from "./components/UpdateProfile";
 import Specialties from "./components/Specialties";
+import Doctors from "./components/Doctors";
 
 // Navbar
 import NavBar from "./components/NavBar";
@@ -74,6 +75,11 @@ const AppStack = () => (
     <Stack.Screen
       name="UpdateUserForm"
       component={UpdateUserForm}
+      options={{ title: "Actualizar usuario", headerShown: false }}
+    />
+    <Stack.Screen
+      name="Doctors"
+      component={Doctors}
       options={{ title: "Actualizar usuario", headerShown: false }}
     />
   </Stack.Navigator>
