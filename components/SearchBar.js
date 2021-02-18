@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { TextInput, View, StyleSheet } from "react-native";
 
-const SearchBar = ({ onChange, value, placeholder }) => {
+const SearchBar = ({ onChangeText, value, placeholder }) => {
   const inputRef = useRef(null);
 
   return (
@@ -17,7 +17,7 @@ const SearchBar = ({ onChange, value, placeholder }) => {
         <TextInput
           style={styles.input}
           value={value}
-          onChange={onChange}
+          onChangeText={onChangeText}
           placeholder={placeholder}
           ref={inputRef}
         />

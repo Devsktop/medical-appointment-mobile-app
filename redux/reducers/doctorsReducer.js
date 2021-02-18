@@ -1,6 +1,11 @@
-import { SET_DOCTORS_DATA } from "../actions/doctorsActions";
+import {
+  SET_DOCTORS_DATA,
+  SPECIALTIES_FILTER,
+} from "../actions/doctorsActions";
 
-const initialState = {};
+const initialState = {
+  specialtiesFilter: "",
+};
 
 export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -9,6 +14,11 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         doctors: payload.doctors,
         specialties: payload.specialties,
+      };
+    case SPECIALTIES_FILTER:
+      return {
+        ...state,
+        specialtiesFilter: payload.filter,
       };
     default:
       return state;

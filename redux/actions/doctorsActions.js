@@ -1,6 +1,13 @@
 /* eslint-disable no-async-promise-executor */
 import firestore from "@react-native-firebase/firestore";
 
+export const SPECIALTIES_FILTER = "SPECIALTIES_FILTER";
+
+export const specialtiesFilter = (filter) => ({
+  type: SPECIALTIES_FILTER,
+  payload: { filter },
+});
+
 export const SET_DOCTORS_DATA = "SET_DOCTORS_DATA";
 
 const setDoctorsDataAction = (doctors, specialties) => ({

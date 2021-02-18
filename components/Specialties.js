@@ -1,28 +1,24 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Text, View, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
 // Components
 import BackButton from "./BackButton";
-import SearchBar from "./SearchBar";
+import SpecialtiesSearchBar from "./SpecialtiesSearchBar";
+import SpecialtiesGrid from "./SpecialtiesGrid";
 
-const Specialties = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const specialties = useSelector((state) => state.doctors.specialties);
-  console.log(specialties);
-  return (
-    <View>
-      <LinearGradient style={styles.container} colors={["#3867B4", "#0F94B4"]}>
-        <View style={styles.header}>
-          <BackButton navigation={navigation} />
-          <Text style={styles.title}>Especialidades</Text>
-        </View>
-      </LinearGradient>
-      <SearchBar placeholder="Buscar especialidad..." />
-    </View>
-  );
-};
+const Specialties = ({ navigation }) => (
+  <View>
+    <LinearGradient style={styles.container} colors={["#3867B4", "#0F94B4"]}>
+      <View style={styles.header}>
+        <BackButton navigation={navigation} />
+        <Text style={styles.title}>Especialidades</Text>
+      </View>
+    </LinearGradient>
+    <SpecialtiesSearchBar />
+    <SpecialtiesGrid />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
