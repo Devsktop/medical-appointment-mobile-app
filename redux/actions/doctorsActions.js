@@ -8,6 +8,13 @@ export const specialtiesFilter = (filter) => ({
   payload: { filter },
 });
 
+export const SELECT_SPECIALTY = "SELECT_SPECIALTY";
+
+export const selectSpecialty = (specialty) => ({
+  type: SELECT_SPECIALTY,
+  payload: { specialty },
+});
+
 export const SET_DOCTORS_DATA = "SET_DOCTORS_DATA";
 
 const setDoctorsDataAction = (doctors, specialties) => ({
