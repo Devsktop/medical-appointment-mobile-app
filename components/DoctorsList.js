@@ -34,9 +34,11 @@ const DoctorsList = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {Object.keys(doctors).map((key) => {
+        {Object.keys(doctors).map((key, i) => {
           console.log(key);
-          return <DoctorBox doctor={doctors[key]} key={key} />;
+          return (
+            <DoctorBox doctor={doctors[key]} key={key} pair={i % 2 === 0} />
+          );
         })}
       </View>
     </ScrollView>
@@ -46,9 +48,6 @@ const DoctorsList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "blue",
   },
   header: {
     flexDirection: "row",

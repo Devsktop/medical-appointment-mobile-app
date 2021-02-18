@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const doctorIcon = require("../assets/doctor.svg");
+import DoctorIcon from "../assets/doctor.svg";
 
 const getDoctorNames = (doctor) => {
   const firstName = doctor.names.split(" ")[0];
@@ -10,27 +10,49 @@ const getDoctorNames = (doctor) => {
   return `${firstName} ${lastName}`;
 };
 
-const DoctorsBox = ({ doctor }) => {
+const DoctorsBox = ({ doctor, pair }) => {
   console.log(doctor);
   return (
-    <View style={styles.container}>
-      <View>
-        <Image source={doctorIcon} style={{ width: 30, height: 30 }} />
-        <Text>{getDoctorNames(doctor)}</Text>
-        <Text>sdfsdf</Text>
+    <TouchableWithoutFeedback onPress={() => console.log("press")}>
+      <View
+        style={[
+          styles.container,
+          pair ? styles.backgroundWhite : styles.backgroundGray,
+        ]}
+      >
+        <View style={styles.left}>
+          <DoctorIcon width={50} height={50} />
+          <Text style={styles.text}>{getDoctorNames(doctor)}</Text>
+        </View>
+        <Icon name="chevron-right" size={30} color="gray" />
       </View>
-      <Icon name="chevron-right" size={20} color="gray" />
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "red",
-    height: 100,
+    justifyContent: "space-between",
+    padding: 15,
+    alignItems: "center",
+    height: 80,
+  },
+  backgroundWhite: {
+    backgroundColor: "#fff",
+  },
+  left: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  text: {
+    color: "gray",
+    fontWeight: "700",
+    fontSize: 18,
+    marginLeft: 20,
+  },
+  backgroundGray: {
+    backgroundColor: "#f7f7f7",
   },
 });
 
