@@ -1,108 +1,153 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   Text,
   View,
   TouchableHighlight,
-  ActivityIndicator,
   Image,
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import LinearGradient from "react-native-linear-gradient";
+
+import IconAnt from "react-native-vector-icons/AntDesign";
+import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import BackButton from "./BackButton";
 
+import DoctorIcon from "../assets/doctorProfile.svg";
+
+const getDoctorNames = (doctor) => {
+  const firstName = doctor.names.split(" ")[0];
+  const lastName = doctor.lastNames.split(" ")[0];
+  return `${firstName} ${lastName}`;
+};
+
+const doctorSelector = (state) => {
+  const { doctors, currentDoctor, specialties } = state.doctors;
+  const specialtyId = doctors[currentDoctor].specialty;
+  const doctor = {
+    ...doctors[currentDoctor],
+    specialty: {
+      id: specialtyId,
+      specialty: specialties[specialtyId].specialty,
+    },
+  };
+  return doctor;
+};
+
 const DoctorProfile = ({ navigation }) => {
-  const [doctor, setDoctor] = useState({
-    name: "Alejandro González",
-    specialty: "Dermatología",
-    experience: "21",
-    doctorPicture: require("../assets/doctor.jpg"),
-  });
-  const [appointment, setAppointment] = useState({
-    startTime: "9:00",
-    endTime: "9:15",
-    price: "400",
-    observations: "Picazón intensa y aparición de pigmentos rojos",
-    specialization: "Colposcopia, Manejo anticonceptivo, Endometriosis",
-  });
+  const doctor = useSelector(doctorSelector);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.header}>
-          <View style={{ flexDirection: "row" }}>
-            <BackButton navigation={navigation} />
-            <Text style={{ fontSize: 30, color: "white" }}>  
-              Perfil de Médico
+    <View style={styles.container}>
+      <LinearGradient style={styles.header} colors={["#3867B4", "#0F94B4"]}>
+        <View
+          style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        >
+          <BackButton navigation={navigation} />
+          <Text
+            style={{
+              fontSize: 20,
+              color: "white",
+              marginBottom: 20,
+              marginLeft: 10,
+            }}
+          >
+            Perfil de doctor
+          </Text>
+        </View>
+        <View style={styles.doctorInfo}>
+          <View style={styles.portrait}>
+            <DoctorIcon width={70} height={70} />
+          </View>
+          <View style={styles.breakLine}>
+            <Text style={[styles.font, styles.fontBig]}>
+              {getDoctorNames(doctor)}
+            </Text>
+            <Text style={[styles.font, styles.fontBig]}>
+              {doctor.specialty.specialty}
             </Text>
           </View>
-          <View style={styles.doctorInfo}>
-            <Image source={doctor.doctorPicture} style={styles.portrait} />
-            <View style={styles.breakLine}>
-              <Text style={styles.font}>Dr. {doctor.name} </Text>
-              <Text style={styles.font}>{doctor.specialty}</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <View style={styles.appointmentInfo}>
+            <IconAnt
+              name="clockcircle"
+              size={30}
+              style={{ paddingLeft: 10 }}
+              color="#acfac7"
+            />
+            <View style={{ flexDirection: "column" }}>
+              <Text style={styles.font}>Horario</Text>
               <Text style={styles.font}>
-                {doctor.experience}+ Años de experiencia{" "}
+                {`${doctor.startHour} - ${doctor.endHour}`}
               </Text>
             </View>
           </View>
-          <View style={{ flexDirection: "row", backgroundColor: "#408cc2" }}>
-            <View style={styles.appointmentInfo}>
-              <Icon
-                name="time-outline"
-                size={60}
-                style={{ paddingLeft: 10 }}
-                color="black"
-              />
-              <View style={{ flexDirection: "column" }}>
-                <Text style={styles.font}>Horario</Text>
-                <Text style={styles.font}>
-                  {appointment.startTime}-{appointment.endTime}{" "}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.appointmentInfo}>
-              <Icon
-                name="cash-outline"
-                size={60}
-                color="black"
-                style={{ paddingLeft: 10 }}
-              />
-              <View style={{ flexDirection: "column" }}>
-                <Text style={styles.font}>Precio</Text>
-                <Text style={styles.font}>{appointment.price} </Text>
-              </View>
+          <View style={styles.appointmentInfo}>
+            <IconMaterial
+              name="attach-money"
+              size={30}
+              color="#2c99bb"
+              style={{
+                padding: 1,
+                backgroundColor: "#acfac7",
+                borderRadius: 100,
+              }}
+            />
+            <View style={{ flexDirection: "column" }}>
+              <Text style={styles.font}>Cuota</Text>
+              <Text style={styles.font}>{`${doctor.price}/Sesión`}</Text>
             </View>
           </View>
         </View>
+      </LinearGradient>
 
-        <View style={styles.body}>
-          <Text style={{ color: "#408cc2", fontSize: 28 }}>
-            ESPECIALIZACIONES
+      <View style={styles.body}>
+        <View>
+          <Text
+            style={{
+              color: "#408cc2",
+              fontSize: 18,
+              textTransform: "uppercase",
+              margin: 20,
+            }}
+          >
+            Especializaciones
           </Text>
-          <Text style={styles.info}>{appointment.specialization} </Text>
+          <Text style={styles.info}>{doctor.description}</Text>
         </View>
-
-        <View style={{ marginTop: 80, marginLeft: "5%" }}>
-          <TouchableHighlight style={{ width: "90%", textAlign: "center" }}>
+        <View
+          style={{
+            marginTop: 80,
+            width: "100%",
+            padding: 20,
+          }}
+        >
+          <TouchableHighlight style={{ textAlign: "center" }}>
             <Text style={styles.createAppointmentText}> AGENDAR CITA </Text>
           </TouchableHighlight>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "column",
   },
   header: {
     backgroundColor: "#3a6ab1",
   },
   body: {
-    padding: 25,
+    width: "100%",
+    flex: 1,
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    paddingBottom: 20,
   },
 
   buttonFont: {
@@ -112,45 +157,52 @@ const styles = StyleSheet.create({
   },
 
   info: {
-    backgroundColor: "#edf0ee",
-    fontSize: 25,
+    backgroundColor: "#fafafa",
+    fontSize: 17,
+    color: "gray",
+    padding: 20,
   },
   breakLine: {
     flexDirection: "column",
   },
   appointmentInfo: {
     width: "50%",
-    borderRightColor: "black",
-    borderLeftColor: "black",
-    borderTopColor: "#3b65a3",
-    borderBottomColor: "#3b65a3",
-    borderWidth: 1,
+    margin: 1,
     flexDirection: "row",
+    backgroundColor: "#2c99bb",
+    padding: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   Price: {},
   createAppointmentText: {
     color: "white",
     backgroundColor: "#3a6ab1",
     borderRadius: 5,
-    marginLeft: "5%",
     padding: 4,
     textAlign: "center",
-    fontSize: 22,
+    fontSize: 20,
   },
   font: {
     color: "white",
-    fontSize: 20,
+    fontSize: 16,
     paddingLeft: 15,
-    paddingTop: 5,
 
     fontFamily: "helvetic",
   },
+  fontBig: {
+    fontSize: 20,
+  },
   doctorInfo: {
     flexDirection: "row",
+    padding: 20,
+    paddingTop: 0,
   },
   portrait: {
-    width: 120,
-    height: 120,
+    padding: 12,
+    borderColor: "#fff",
+    borderWidth: 4,
+    borderStyle: "solid",
     borderRadius: 180,
   },
 });

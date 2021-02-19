@@ -1,8 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Text, View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import * as RootNavigation from "../RootNavigation";
 
 import DoctorIcon from "../assets/doctor.svg";
+
+// Actions
+import { selectDoctor } from "../redux/actions/doctorsActions";
 
 const getDoctorNames = (doctor) => {
   const firstName = doctor.names.split(" ")[0];
@@ -11,9 +16,14 @@ const getDoctorNames = (doctor) => {
 };
 
 const DoctorsBox = ({ doctor, pair }) => {
-  console.log(doctor);
+  const dispatch = useDispatch();
+
+  const handleSelectDoctor = () => {
+    dispatch(selectDoctor(doctor.id));
+    RootNavigation.navigate("DoctorProfile");
+  };
   return (
-    <TouchableWithoutFeedback onPress={() => console.log("press")}>
+    <TouchableWithoutFeedback onPress={handleSelectDoctor}>
       <View
         style={[
           styles.container,

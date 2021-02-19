@@ -65,5 +65,6 @@
     "specialties": {
         "specialtyId": ""
     },
-    "doctorsId": []
+    "doctorsId": [],
+    "dateTimeDuration": 50
 }

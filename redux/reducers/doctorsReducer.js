@@ -10,6 +10,7 @@ const initialState = {
   specialtiesFilter: "",
   doctorsFilter: "",
   currentSpecialty: "",
+  currentDoctor: "",
 };
 
 export default function reducer(state = initialState, { type, payload }) {

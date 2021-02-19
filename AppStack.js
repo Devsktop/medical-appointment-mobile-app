@@ -20,6 +20,7 @@ import Profile from "./components/Profile";
 import UpdateProfile from "./components/UpdateProfile";
 import Specialties from "./components/Specialties";
 import Doctors from "./components/Doctors";
+import DoctorProfile from "./components/DoctorProfile";
 
 // Navbar
 import NavBar from "./components/NavBar";
@@ -88,6 +89,11 @@ const AppStack = () => (
     <Stack.Screen
       name="Doctors"
       component={Doctors}
+      options={{ title: "Actualizar usuario", headerShown: false }}
+    />
+    <Stack.Screen
+      name="DoctorProfile"
+      component={DoctorProfile}
       options={{ title: "Actualizar usuario", headerShown: false }}
     />
   </Stack.Navigator>

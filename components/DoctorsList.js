@@ -11,7 +11,7 @@ const doctorsSelectors = (state) => {
   const doctorsBySpecialty = {};
   Object.keys(doctors).forEach((key) => {
     if (doctors[key].specialty === currentSpecialty)
-      doctorsBySpecialty[key] = { ...doctors[key] };
+      doctorsBySpecialty[key] = { ...doctors[key], id: key };
   });
 
   const doctorsByName = {};
