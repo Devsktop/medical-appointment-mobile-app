@@ -1,0 +1,82 @@
+{
+    "user": {
+        "isNewUser": true,
+        "isAdmin": true,
+        "isDoctor": false,
+        "profilePhotoUrl": "",
+        "names": "",
+        "lastNames": "",
+        "dni": "",
+        "bornDate": "05/05/2000",
+        "gender": "",
+        "weight": 50,
+        "height": 5,
+        "bloodType": "",
+        "medicalHistory": {
+            "vih": true,
+            "obesity": true,
+            "anemia": true,
+            "bleedingDisorders": true,
+            "peripheralVascularDisease": true,
+            "rheumatoidArthritis": true,
+            "heartFailure": true,
+            "renalFailure": true,
+            "coronaryDisease": true,
+            "bronchialAsthma": true,
+            "obstructiveLungDisease": true,
+            "PulmonaryCirculationDisorder": true,
+            "depression": true,
+            "diabetes": true,
+            "arterialHypertension": true,
+            "hypothyroidism": true,
+            "liverDisease": true,
+            "lymphoma": true,
+            "neurologicalDisorders": true,
+            "cancer": true,
+            "paralysis": true,
+            "smoker": true,
+            "alcoholic": true,
+            "drugAddict": true,
+            "gestationState": true,
+            "nursing": true,
+            "disability": true
+        }
+    },
+    "clinics": {
+        "idClinic": "",
+        "name": "",
+        "phone": "",
+        "direction": "",
+        "rif": ""
+    },
+    "doctors": {
+        "doctorId": "",
+        "names": "",
+        "lastNames": "",
+        "dni": "",
+        "specialty": "",
+        "gender": "",
+        "age": "",
+        "startHour": "8:15",
+        "endHour": "9:00",
+        "price": 54,
+        "idClinic": "",
+        "isDoctor": true
+    },
+    "appointments": {
+        "appointmentId": "",
+        "appointment": "10/05/2000",
+        "startHour": "8:15",
+        "endHour": "9:00",
+        "doctorId": "",
+        "userId": "",
+        "especialtyId": "",
+        "observations": "",
+        "idClinic": ""
+    },
+    "specialties": {
+        "specialtyId": ""
+    },
+    "doctorsId": [],
+    "appointmentTimeDuration": 50
+}
