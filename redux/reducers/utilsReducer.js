@@ -3,6 +3,10 @@ import { IS_LOADING_PROFILE_PHOTO, SHOW_MENU } from "../actions/utilsActions";
 const initialState = {
   isLoadingProfilePhoto: false,
   showMenu: false,
+<<<<<<< HEAD
+=======
+  DoctorAppointmentsListener: null,
+>>>>>>> lastver
 };
 
 export default function reducer(state = initialState, { type, payload }) {
@@ -19,6 +23,15 @@ export default function reducer(state = initialState, { type, payload }) {
         showMenu: payload.show,
       };
 
+<<<<<<< HEAD
+=======
+    case "FIRABE_DOCTOR_APPOINTMENTS_LISTENER":
+      return {
+        ...state,
+        DoctorAppointmentsListener: payload.unsub,
+      };
+
+>>>>>>> lastver
     default:
       return state;
   }

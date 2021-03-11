@@ -3,14 +3,13 @@ import firestore from "@react-native-firebase/firestore";
 
 export const SET_USER = "SET_USER";
 
-const setUser = (user) => ({
+export const setUser = (user) => ({
   type: SET_USER,
   payload: { user },
 });
 
-export function setUserAction(navigation, from) {
+export function setUserAction(navigation) {
   return async (dispatch) => {
-    console.log("userActio ", from);
     const { currentUser } = auth();
     if (!currentUser) {
       navigation.navigate("SignUp");

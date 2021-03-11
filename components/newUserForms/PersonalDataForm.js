@@ -47,8 +47,7 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
           placeholder="Ingrese sus apellidos"
           placeholderTextColor="#b8b8b8"
           onChangeText={(lastNames) =>
-            handleFormChange(lastNames, "lastNames", "user")
-          }
+            handleFormChange(lastNames, "lastNames", "user")}
           value={userData.lastNames}
         />
       </View>
@@ -91,13 +90,13 @@ const PersonalDataForm = ({ userData, handleFormChange }) => {
                 styles.dateText,
               ]}
             >
-              {userData.bornDate.toLocaleDateString()}
+              {userData.bornDate.toLocaleDateString("en-GB")}
             </Text>
           </View>
         )}
       </View>
       <View style={globalStyles.inputBox}>
-        <Text style={styles.genderTitle}>Genero Sexual</Text>
+        <Text style={styles.genderTitle}>Género</Text>
         <View style={styles.radioButtonContainer}>
           <View style={styles.radioButtonRow}>
             <RadioButton

@@ -6,8 +6,13 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import DoctorBox from "./DoctorBox";
 
 const doctorsSelectors = (state) => {
-  const { doctors, doctorsFilter, currentSpecialty } = state.doctors;
-
+  const {
+    doctors,
+    doctorsFilter,
+    currentSpecialty,
+    currentClinic,
+  } = state.doctors;
+  if (!doctors) return null;
   const doctorsBySpecialty = {};
   Object.keys(doctors).forEach((key) => {
     if (doctors[key].specialty === currentSpecialty)
@@ -26,11 +31,24 @@ const doctorsSelectors = (state) => {
     )
       doctorsByName[key] = { ...doctorsBySpecialty[key] };
   });
-  return doctorsByName;
+  const doctorsByClinic = getDoctorsByClinic(doctorsByName, currentClinic);
+
+  return doctorsByClinic;
+};
+
+const getDoctorsByClinic = (doctors, currentClinic) => {
+  const doctorsByClinic = {};
+
+  Object.keys(doctors).forEach((key) => {
+    if (doctors[key].idClinic === currentClinic)
+      doctorsByClinic[key] = { ...doctors[key] };
+  });
+  return doctorsByClinic;
 };
 
 const DoctorsList = () => {
   const doctors = useSelector(doctorsSelectors);
+  if (!doctors) return null;
   return (
     <ScrollView>
       <View style={styles.container}>

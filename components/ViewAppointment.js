@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
-import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
 import IconAnt from "react-native-vector-icons/AntDesign";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import BackButton from "./BackButton";
-
+import firestore from "@react-native-firebase/firestore";
 import DoctorIcon from "../assets/doctorProfile.svg";
+
+const dbRef = firestore().collection('appointments');
 
 const getDoctorNames = (doctor) => {
   const firstName = doctor.names.split(" ")[0];
@@ -17,7 +20,6 @@ const getDoctorNames = (doctor) => {
 
 const doctorSelector = (state) => {
   const { doctors, currentDoctor, specialties } = state.doctors;
-  if (!doctors) return null;
   const specialtyId = doctors[currentDoctor].specialty;
   const doctor = {
     ...doctors[currentDoctor],
@@ -29,9 +31,58 @@ const doctorSelector = (state) => {
   return doctor;
 };
 
-const DoctorProfile = ({ navigation }) => {
+const appointmentSelector = (state) => {
+  const { appointments, currentAppointment } = state.appointments;
+  return appointments.find(
+    (item) => item.appointmentId === currentAppointment
+  );
+};
+
+ 
+
+  
+const ViewAppointment = ({ navigation }) => {
+  const appointment = useSelector(appointmentSelector);
   const doctor = useSelector(doctorSelector);
-  if (!doctor) return null;
+
+  const passHour = (appointment) ? appointment.startHour : "";
+  const passEndHour = (appointment) ? appointment.endHour : "";
+  const passText = (appointment) ?  appointment.observations : "";
+  const passDate = (appointment) ?  appointment.date.toLocaleDateString("en-GB") : "";
+  
+  const [appointmentTime, setAppointmentTime] = useState(passHour);
+const [appointmentDate, setAppointmentDate] = useState(passDate);
+const [appointmentText, setAppointmentText] = useState(passText);
+const [appointmentEndTime, setAppointmentEndTime] = useState(passEndHour);
+  const handleUpdate = () => {
+    navigation.navigate("EditAppointment");
+  };
+  
+
+  
+const deleteAppointment =() =>{
+const appointmentD = appointment.appointmentId;
+const dbRef = firestore().collection('appointments').doc(appointmentD);
+dbRef.delete();
+navigation.navigate("Appointments");
+    
+  }
+
+
+  const handleDelete = () => {
+    Alert.alert(
+      "¿Está seguro?",
+      "Está a punto de eliminar su consulta agendada. ¿Está seguro?.",
+      [
+        {
+          text: "Aceptar", onPress: ()=> deleteAppointment()
+        },{
+          text: "Cancelar"
+        }
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -48,7 +99,7 @@ const DoctorProfile = ({ navigation }) => {
               marginLeft: 10,
             }}
           >
-            Perfil de doctor
+            Cita Pendiente
           </Text>
         </View>
         <View style={styles.doctorInfo}>
@@ -73,9 +124,9 @@ const DoctorProfile = ({ navigation }) => {
               color="#acfac7"
             />
             <View style={{ flexDirection: "column" }}>
-              <Text style={styles.font}>Horario</Text>
+              <Text style={styles.font}>Hora</Text>
               <Text style={styles.font}>
-                {`${doctor.startHour} - ${doctor.endHour}`}
+                {`${appointmentTime} - ${appointmentEndTime}`}
               </Text>
             </View>
           </View>
@@ -92,40 +143,62 @@ const DoctorProfile = ({ navigation }) => {
             />
             <View style={{ flexDirection: "column" }}>
               <Text style={styles.font}>Cuota</Text>
-              <Text style={styles.font}>{`${doctor.price}/Sesión`}</Text>
+              <Text style={styles.font}>{`${doctor.price}$`}</Text>
             </View>
           </View>
         </View>
       </LinearGradient>
-
-      <View style={styles.body}>
-        <View>
-          <Text
-            style={{
-              color: "#408cc2",
-              fontSize: 18,
-              textTransform: "uppercase",
-              margin: 20,
-            }}
-          >
-            Especializaciones
-          </Text>
-          <Text style={styles.info}>{doctor.description}</Text>
+      <ScrollView style={{ flex: 1, marginTop: 10 }}>
+        <View style={styles.body}>
+          <View>
+            <Text
+              style={{
+                color: "#408cc2",
+                fontSize: 18,
+                textTransform: "uppercase",
+                margin: 20,
+                marginTop: 10,
+              }}
+            >
+              Especializaciones
+            </Text>
+            <Text style={styles.info}>{doctor.description}</Text>
+          </View>
+          <View>
+            <Text
+              style={{
+                color: "#408cc2",
+                fontSize: 18,
+                textTransform: "uppercase",
+                margin: 20,
+              }}
+            >
+              Observaciones
+            </Text>
+            <Text style={styles.info}>{appointmentText}</Text>
+          </View>
         </View>
-        <View
-          style={{
-            marginTop: 80,
-            width: "100%",
-            padding: 20,
-          }}
-        >
-          <TouchableHighlight
-            style={{ textAlign: "center" }}
-            onPress={() => navigation.navigate("CreateAppointment")}
-          >
-            <Text style={styles.createAppointmentText}> AGENDAR CITA </Text>
-          </TouchableHighlight>
-        </View>
+      </ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+          padding: 20,
+          justifyContent: "flex-end",
+        }}
+      >
+        <FontAwesome
+          name="pencil-alt"
+          size={30}
+          color="#3867B4"
+          style={{ marginRight: 30 }}
+          onPress={handleUpdate}
+        />
+        <FontAwesome
+          name="trash-alt"
+          size={30}
+          color="#fb6867"
+          onPress={handleDelete}
+        />
       </View>
     </View>
   );
@@ -135,6 +208,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    backgroundColor: "#fff",
   },
   header: {
     backgroundColor: "#3a6ab1",
@@ -142,7 +216,7 @@ const styles = StyleSheet.create({
   body: {
     width: "100%",
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     backgroundColor: "#fff",
     paddingBottom: 20,
   },
@@ -204,4 +278,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DoctorProfile;
+export default ViewAppointment;

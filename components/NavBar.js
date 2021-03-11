@@ -8,7 +8,7 @@ const NavBar = () => {
   const [current, setCurrent] = useState("Main");
 
   useEffect(() => {
-    const routeNames = ["Main", "Profile", "Specialties"];
+    const routeNames = ["Main", "Profile", "Clinics", "Appointments"];
     const router = RootNavigation.navigationRef.current.addListener(
       "state",
       () => {
@@ -41,18 +41,19 @@ const NavBar = () => {
         <Icon
           style={styles.navbarButtonIcon}
           size={30}
-          color={current === "Specialties" ? "#3a6ab1" : "gray"}
+          color={current === "Clinics" ? "#3a6ab1" : "gray"}
           name="medkit-outline"
-          onPress={() => navController("Specialties")}
+          onPress={() => navController("Clinics")}
         />
-        <Text style={styles.navbarButtonText}>Especialidades</Text>
+        <Text style={styles.navbarButtonText}>Clínicas</Text>
       </View>
       <View style={styles.navbarButton}>
         <Icon
           style={styles.navbarButtonIcon}
           size={30}
-          color={current === "Dates" ? "#3a6ab1" : "gray"}
+          color={current === "Appointments" ? "#3a6ab1" : "gray"}
           name="calendar"
+          onPress={() => navController("Appointments")}
         />
         <Text style={styles.navbarButtonText}>Citas</Text>
       </View>

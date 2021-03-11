@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { View, StyleSheet } from "react-native";
 import globalStyles from "../styles";
 
@@ -6,12 +7,16 @@ import globalStyles from "../styles";
 import ProfileHeader from "./ProfileHeader";
 import ProfileBody from "./ProfileBody";
 
-const Profile = ({ navigation }) => (
-  <View style={[globalStyles.container, styles.container]}>
-    <ProfileHeader navigation={navigation} />
-    <ProfileBody />
-  </View>
-);
+const Profile = ({ navigation }) => {
+  const isValid = useSelector((state) => state.user.userData);
+  if (!isValid) return null;
+  return (
+    <View style={[globalStyles.container, styles.container]}>
+      <ProfileHeader navigation={navigation} />
+      <ProfileBody />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -33,9 +33,6 @@ const LoginCotroller = ({ setScreen }) => (
       >
         <Text style={globalStyles.buttonText}>Nuevo Usuario</Text>
       </TouchableHighlight>
-      <Text style={styles.littleText}>
-        Al continuar acepta con nuestros términos y condiciones.
-      </Text>
     </View>
   </>
 );

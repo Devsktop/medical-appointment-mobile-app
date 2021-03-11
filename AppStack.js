@@ -19,8 +19,16 @@ import Success from "./components/newUserForms/Success";
 import Profile from "./components/Profile";
 import UpdateProfile from "./components/UpdateProfile";
 import Specialties from "./components/Specialties";
+import Clinics from "./components/Clinics";
 import Doctors from "./components/Doctors";
 import DoctorProfile from "./components/DoctorProfile";
+import CreateAppointment from "./components/CreateAppointment";
+import Appointments from "./components/Appointments";
+import DoctorAppointments from "./components/DoctorAppointments";
+import ViewAppointment from "./components/ViewAppointment";
+import ViewDoctorAppointment from "./components/ViewDoctorAppointment";
+import AppointmentHistory from "./components/AppointmentHistory";
+import EditAppointment from "./components/EditAppointment";
 
 // Navbar
 import NavBar from "./components/NavBar";
@@ -57,6 +65,11 @@ const AppStack = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
+      name="EditAppointment"
+      component={EditAppointment}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
       name="Success"
       component={Success}
       options={{ headerShown: false }}
@@ -69,6 +82,11 @@ const AppStack = () => (
     <Stack.Screen
       name="UpdateProfile"
       component={UpdateProfile}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Clinics"
+      component={Clinics}
       options={{ headerShown: false }}
     />
     <Stack.Screen
@@ -95,6 +113,36 @@ const AppStack = () => (
       name="DoctorProfile"
       component={DoctorProfile}
       options={{ title: "Actualizar usuario", headerShown: false }}
+    />
+    <Stack.Screen
+      name="CreateAppointment"
+      component={CreateAppointment}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Appointments"
+      component={Appointments}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="DoctorAppointments"
+      component={DoctorAppointments}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ViewAppointment"
+      component={ViewAppointment}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ViewDoctorAppointment"
+      component={ViewDoctorAppointment}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="AppointmentHistory"
+      component={AppointmentHistory}
+      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );

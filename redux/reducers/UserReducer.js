@@ -9,10 +9,7 @@ const initialState = {};
 export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case SET_USER:
-      return {
-        ...state,
-        ...payload.user,
-      };
+      return payload.user;
     case UPDATE_PROFILEPHOTO_URL:
       return {
         ...state,

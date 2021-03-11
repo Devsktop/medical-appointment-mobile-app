@@ -6,6 +6,7 @@ import auth from "@react-native-firebase/auth";
 // Actions
 import { setUserAction, logout } from "../redux/actions/UserAction";
 import { setDoctorsData } from "../redux/actions/doctorsActions";
+import { getAppointment } from "../redux/actions/appointmentsActions";
 
 const Loading = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Loading = ({ navigation }) => {
           resolve(dispatch(setUserAction(navigation)))
         );
         await new Promise((resolve) => resolve(dispatch(setDoctorsData())));
+        await new Promise((resolve) => resolve(dispatch(getAppointment())));
       } else {
         dispatch(logout());
       }

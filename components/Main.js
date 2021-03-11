@@ -8,39 +8,23 @@ import {
   TouchableHighlight,
   ActivityIndicator,
   Image,
-  FlatList,
-  ScrollView,
-  ImageBackground,
 } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import globalStyles from "../styles";
+
+import Ambulance from "../assets/ambulance.svg";
 
 // Actions
 import { showMenu } from "../redux/actions/utilsActions";
+import { getDoctorAppointments } from "../redux/actions/doctorsActions";
 
 const banner = require("../assets/mainImg/female-GP-online.jpg");
-const background = require("../assets/mainImg/fondo.jpg");
-
-const Banner = ({ item }) => (
-  <View>
-    <ImageBackground source={background} style={styles.background}>
-      <View style={styles.Appointment}>
-        <Text style={styles.appointmentText}>
-          {`Especialidad: ${item.specialty}`}
-        </Text>
-        <Text style={styles.appointmentText}>
-          Médico:
-          {item.doctor}
-        </Text>
-      </View>
-    </ImageBackground>
-  </View>
-);
 
 const Main = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -50,34 +34,37 @@ const Main = ({ navigation }) => {
     });
   }, [navigation]);
 
-  const [appointments, setAppointments] = useState([
-    { id: 1, specialty: "Gastroenterología", doctor: "José Jiménez" },
-    { id: 2, specialty: "Gastroenterología", doctor: "Alguien Más" },
-    { id: 3, specialty: "Gastroenterología", doctor: "Alguien Más" },
-  ]);
-
-  const validateUser = () => {
+  const validateUser = async () => {
     const { currentUser } = auth();
     if (!currentUser) {
       navigation.navigate("SignUp");
     } else {
-      firestore()
+      const users = await firestore()
         .collection("users")
         .doc(currentUser.uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            const { isNewUser } = doc.data();
-            if (isNewUser) {
-              dispatch(showMenu(false));
-              navigation.navigate("NewUserForm");
-            } else {
-              setUser(currentUser);
-              setLoading(false);
-              dispatch(showMenu(true));
-            }
-          }
-        });
+        .get();
+
+      if (users.exists) {
+        const { isNewUser } = users.data();
+        if (isNewUser) {
+          dispatch(showMenu(false));
+          navigation.navigate("NewUserForm");
+        } else {
+          setLoading(false);
+          dispatch(showMenu(true));
+        }
+      } else {
+        const doctors = await firestore()
+          .collection("doctors")
+          .doc(currentUser.uid)
+          .get();
+        if (doctors.exists) {
+          await new Promise((resolve) =>
+            resolve(dispatch(getDoctorAppointments(currentUser.uid)))
+          );
+          navigation.navigate("DoctorAppointments");
+        } else navigation.navigate("SignUp");
+      }
     }
   };
 
@@ -87,6 +74,8 @@ const Main = ({ navigation }) => {
     });
     return focusListener;
   }, []);
+
+  useEffect(() => {}, []);
 
   if (loading)
     return (
@@ -98,21 +87,37 @@ const Main = ({ navigation }) => {
 
   return (
     <View style={[globalStyles.container, styles.container]}>
-      <ScrollView>
+      <View style={{ flex: 1 }}>
         <View style={banner}>
           <Image style={styles.bannerImage} source={banner} />
-          <TouchableHighlight style={styles.bookAppointment}>
-            <Text style={styles.logoutText}>Agendar una Cita</Text>
+          <TouchableHighlight
+            style={styles.bookAppointment}
+            onPress={() => navigation.navigate("Clinics")}
+            underlayColor="#3a6ab1"
+          >
+            <Text style={styles.logoutText}>Agendar Cita</Text>
           </TouchableHighlight>
         </View>
-        <View>
-          <FlatList
-            data={appointments}
-            renderItem={({ item }) => <Banner item={item} />}
-            keyExtractor={(appointment) => appointment.id.toString()}
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <FontAwesome
+            name="ambulance"
+            size={100}
+            style={{ color: "gray", marginBottom: 20, opacity: 0.6 }}
           />
+          <Text
+            style={{
+              fontSize: 22,
+              color: "gray",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            Agenda tus consultas médicas de manera instantánea
+          </Text>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -167,19 +172,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-  },
-  Appointment: {
-    marginTop: 15,
+    textTransform: "uppercase",
   },
   background: {
     width: 500,
-    height: 150,
+    height: 130,
     marginTop: 15,
-  },
-  appointmentText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 10,
+
+    backgroundColor: "#69a2ff",
   },
 });
 

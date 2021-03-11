@@ -1,6 +1,8 @@
 {
     "user": {
         "isNewUser": true,
+        "isAdmin": true,
+        "isDoctor": false,
         "profilePhotoUrl": "",
         "names": "",
         "lastNames": "",
@@ -40,6 +42,13 @@
             "disability": true
         }
     },
+    "clinics": {
+        "idClinic": "",
+        "name": "",
+        "phone": "",
+        "direction": "",
+        "rif": ""
+    },
     "doctors": {
         "doctorId": "",
         "names": "",
@@ -50,21 +59,24 @@
         "age": "",
         "startHour": "8:15",
         "endHour": "9:00",
-        "price": 54
+        "price": 54,
+        "idClinic": "",
+        "isDoctor": true
     },
-    "dates": {
-        "dateId": "",
-        "date": "10/05/2000",
+    "appointments": {
+        "appointmentId": "",
+        "appointment": "10/05/2000",
         "startHour": "8:15",
         "endHour": "9:00",
         "doctorId": "",
         "userId": "",
         "especialtyId": "",
-        "observations": ""
+        "observations": "",
+        "idClinic": ""
     },
     "specialties": {
         "specialtyId": ""
     },
     "doctorsId": [],
-    "dateTimeDuration": 50
+    "appointmentTimeDuration": 50
 }

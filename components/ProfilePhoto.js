@@ -5,7 +5,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 const ProfilePhoto = ({ width, height }) => {
   const profilePhotoUrl = useSelector((state) => state.user.profilePhotoUrl);
-
   return (
     <View style={[styles.container, styles.profileButton, { width, height }]}>
       {profilePhotoUrl ? (

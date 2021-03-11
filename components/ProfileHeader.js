@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import auth from "@react-native-firebase/auth";
@@ -10,38 +11,51 @@ import BackButton from "./BackButton";
 
 // Actions
 
-const ProfileHeader = ({ navigation }) => (
-  <LinearGradient style={styles.header} colors={["#3867B4", "#0F94B4"]}>
-    <BackButton navigation={navigation} />
-    <View style={styles.headerInfo}>
-      <View style={styles.headerInfoUser}>
-        <ProfilePhoto width={80} height={80} />
-        <UserNameAge
-          textBoxStyle={{
-            justifyContent: "flex-start",
-            marginLeft: 10,
-          }}
-        />
+const ProfileHeader = ({ navigation, buttons = true }) => {
+  const dispatch = useDispatch();
+  const unsub = useSelector((state) => state.utils.DoctorAppointmentsListener);
+
+  return (
+    <LinearGradient style={styles.header} colors={["#3867B4", "#0F94B4"]}>
+      <BackButton navigation={navigation} />
+      <View style={styles.headerInfo}>
+        <View style={styles.headerInfoUser}>
+          <ProfilePhoto width={80} height={80} />
+          <UserNameAge
+            textBoxStyle={{
+              justifyContent: "flex-start",
+              marginLeft: 10,
+            }}
+          />
+        </View>
+        {buttons && (
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight
+              style={styles.updateProfileButton}
+              onPress={() => navigation.navigate("UpdateProfile")}
+              underlayColor="#769ad0"
+            >
+              <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={styles.logoutButton}
+              onPress={() => {
+                unsub();
+                dispatch({
+                  type: "USER_LOGOUT",
+                });
+                auth().signOut();
+              }}
+              underlayColor="#bf6b6b"
+            >
+              <Text style={styles.logoutButtonText}>Cerrar Sesión</Text>
+            </TouchableHighlight>
+          </View>
+        )}
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableHighlight
-          style={styles.updateProfileButton}
-          onPress={() => navigation.navigate("UpdateProfile")}
-          underlayColor="#769ad0"
-        >
-          <Text style={styles.updateProfileButtonText}>Editar perfil</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.logoutButton}
-          onPress={() => auth().signOut()}
-          underlayColor="#bf6b6b"
-        >
-          <Text style={styles.logoutButtonText}>Cerrar Sesión</Text>
-        </TouchableHighlight>
-      </View>
-    </View>
-  </LinearGradient>
-);
+    </LinearGradient>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

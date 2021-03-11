@@ -1,5 +1,13 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
-import { Text, View, StyleSheet, Alert } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
+} from "react-native";
 
 import globalStyles from "../styles";
 import StepsIndicator from "./NewUserStepsIndicator";
@@ -186,13 +194,17 @@ const UserFormController = forwardRef(
     }
 
     return (
-      <>
-        <View>
-          <Text style={globalStyles.screenTitle}>{title}</Text>
-          <StepsIndicator cant={5} current={currentScreen} />
-        </View>
-        <View style={styles.contentContainer}>{ScreenForm}</View>
-      </>
+      <ScrollView>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View>
+            <View>
+              <Text style={globalStyles.screenTitle}>{title}</Text>
+              <StepsIndicator cant={5} current={currentScreen} />
+            </View>
+            <View style={styles.contentContainer}>{ScreenForm}</View>
+          </View>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     );
   }
 );
