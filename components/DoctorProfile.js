@@ -6,6 +6,7 @@ import LinearGradient from "react-native-linear-gradient";
 import IconAnt from "react-native-vector-icons/AntDesign";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import BackButton from "./BackButton";
+import WorkingDays from "./WorkingDays";
 
 import DoctorIcon from "../assets/doctorProfile.svg";
 
@@ -99,6 +100,7 @@ const DoctorProfile = ({ navigation }) => {
       </LinearGradient>
 
       <View style={styles.body}>
+        <WorkingDays workingDays={doctor.workingDays} />
         <View>
           <Text
             style={{
