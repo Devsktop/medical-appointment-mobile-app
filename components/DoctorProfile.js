@@ -5,6 +5,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 import IconAnt from "react-native-vector-icons/AntDesign";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
+import { ScrollView } from "react-native-gesture-handler";
 import BackButton from "./BackButton";
 import WorkingDays from "./WorkingDays";
 
@@ -98,27 +99,31 @@ const DoctorProfile = ({ navigation }) => {
           </View>
         </View>
       </LinearGradient>
-
       <View style={styles.body}>
-        <WorkingDays workingDays={doctor.workingDays} />
-        <View>
-          <Text
-            style={{
-              color: "#408cc2",
-              fontSize: 18,
-              textTransform: "uppercase",
-              margin: 20,
-            }}
-          >
-            Especializaciones
-          </Text>
-          <Text style={styles.info}>{doctor.description}</Text>
+        <View style={{ flex: 1 }}>
+          <ScrollView>
+            <WorkingDays workingDays={doctor.workingDays} />
+            <View>
+              <Text
+                style={{
+                  color: "#408cc2",
+                  fontSize: 18,
+                  textTransform: "uppercase",
+                  margin: 20,
+                }}
+              >
+                Especializaciones
+              </Text>
+              <Text style={styles.info}>{doctor.description}</Text>
+            </View>
+          </ScrollView>
         </View>
+
         <View
           style={{
-            marginTop: 80,
             width: "100%",
             padding: 20,
+            paddingBottom: 0,
           }}
         >
           <TouchableHighlight
